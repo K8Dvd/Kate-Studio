@@ -1,632 +1,455 @@
-import { useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import "./index.css";
 
 /*
 ============================================================
-KATE STUDIO — TEMPLATE SHOWCASE
+KATE STUDIO — MAIN CONFIG
 ============================================================
 
-EDITABLE AREA:
-- Add/edit templates inside the "templates" array below.
-- You do NOT need to touch the carousel code.
-- When you add more templates, arrows automatically work.
-- Change your social links in the SOCIALS section.
-- Change prices/details directly inside each template.
-============================================================
+THIS IS THE MAIN PLACE YOU EDIT.
+
+TO ADD A NEW TEMPLATE:
+
+1. Copy one complete template object.
+2. Paste it before the closing ];
+3. Change the information.
+4. Save the file.
+
+The carousel automatically detects new templates.
+
+IMPORTANT:
+- preview = URL shown inside the live preview
+- link = URL opened when "View Template" is clicked
+- price = displayed price
+- description = short description
+- perfectFor = who the template is good for
+- included = things included in the base price
 */
-
-
-/* ============================================================
-   SOCIALS — EDIT THESE
-   ============================================================ */
-
-const SOCIALS = {
-  tiktok:
-    "https://www.tiktok.com/@katestudiooo",
-
-  telegram:
-    "https://web.telegram.org/k/",
-};
-
-
-/* ============================================================
-   TEMPLATES
-   ============================================================
-
-   TO ADD A NEW TEMPLATE:
-
-   Copy ONE entire object below and paste it after the last one.
-
-   Example:
-
-   {
-     id: "T004",
-     title: "Your New Template",
-     category: "Romantic",
-     price: 250,
-     description: "Your description here.",
-     preview: "https://your-link.netlify.app/",
-     link: "https://your-link.netlify.app/",
-     tags: ["Romantic", "Elegant"],
-   },
-
-   That's it.
-   The carousel will automatically include it.
-============================================================ */
 
 const templates = [
   {
     id: "T001",
     title: "Love Story",
-    category: "Romantic · Storytelling",
+    category: "Romantic Website",
     price: 250,
 
+    // TEMPLATE WEBSITE URL
+    preview: "https://t001-love-story-template.netlify.app/",
+    link: "https://t001-love-story-template.netlify.app/",
+
     description:
-      "A sweet and intimate digital love story made for couples who want to turn their memories, milestones, and little moments into a beautiful interactive experience.",
+      "A sweet digital love story made to turn your favorite memories into a beautiful little website.",
 
-    preview:
-      "https://t001-love-story-template.netlify.app/",
+    perfectFor:
+      "Anniversaries, monthsaries, birthdays, long-distance relationships, and simple romantic surprises.",
 
-    link:
-      "https://t001-love-story-template.netlify.app/",
-
-    tags: [
-      "Love Story",
-      "Couples",
-      "Anniversary",
+    included: [
+      "Responsive website",
+      "Basic personalization",
+      "Names & text replacement",
+      "Photo replacement",
+      "Mobile-friendly layout",
     ],
   },
 
   {
     id: "T002",
     title: "Love Notes",
-    category: "Soft · Personal",
+    category: "Interactive Love Letter",
     price: 250,
 
+    // TEMPLATE WEBSITE URL
+    preview: "https://t002-love-notes-template.netlify.app/#dear-you",
+    link: "https://t002-love-notes-template.netlify.app/#dear-you",
+
     description:
-      "A soft digital love letter experience made for heartfelt messages, memories, photos, and everything you wish you could say to your person.",
+      "A soft and personal digital letter designed for sweet messages, memories, and little things you want to say.",
 
-    preview:
-      "https://t002-love-notes-template.netlify.app/#dear-you",
+    perfectFor:
+      "Letters for your partner, Valentine's Day, anniversaries, birthdays, and heartfelt surprises.",
 
-    link:
-      "https://t002-love-notes-template.netlify.app/#dear-you",
-
-    tags: [
-      "Love Letter",
-      "Couples",
-      "Sweet",
+    included: [
+      "Responsive website",
+      "Basic personalization",
+      "Names & text replacement",
+      "Photo replacement",
+      "Mobile-friendly layout",
     ],
   },
 
   {
     id: "T003",
     title: "Our Little Universe",
-    category: "Interactive · Animated",
+    category: "Interactive Experience",
     price: 399,
 
+    // TEMPLATE WEBSITE URL
+    preview: "https://t003-our-little-universe-template.netlify.app/",
+    link: "https://t003-our-little-universe-template.netlify.app/",
+
     description:
-      "A more immersive interactive experience filled with animations, memories, music, and little details designed to feel like your own tiny universe together.",
+      "A more immersive interactive experience filled with animations and little details that make your story feel like its own universe.",
 
-    preview:
-      "https://t003-our-little-universe-template.netlify.app/",
+    perfectFor:
+      "Big romantic surprises, anniversaries, birthdays, proposals, and couples who want something extra special.",
 
-    link:
-      "https://t003-our-little-universe-template.netlify.app/",
-
-    tags: [
-      "Interactive",
-      "Animated",
-      "Premium",
+    included: [
+      "Responsive website",
+      "Basic personalization",
+      "Names & text replacement",
+      "Photo replacement",
+      "Interactive animations",
+      "Mobile-friendly layout",
     ],
   },
+
+  /*
+  ============================================================
+  ADD NEW TEMPLATES HERE
+  ============================================================
+
+  COPY THIS:
+
+  {
+    id: "T004",
+    title: "Your Template Name",
+    category: "Template Category",
+    price: 299,
+
+    preview: "https://your-template.netlify.app/",
+    link: "https://your-template.netlify.app/",
+
+    description:
+      "Short description of your template.",
+
+    perfectFor:
+      "Tell buyers what this template is perfect for.",
+
+    included: [
+      "Responsive website",
+      "Basic personalization",
+      "Names & text replacement",
+      "Photo replacement",
+      "Mobile-friendly layout",
+    ],
+  },
+
+  ============================================================
+  */
 ];
 
-
-/* ============================================================
-   INCLUDED
-============================================================ */
-
-const included = [
-  "Personal names / couple names",
-  "Custom messages and text",
-  "Your photos",
-  "Date / anniversary details",
-  "Basic content replacement",
-  "Responsive mobile design",
-  "Desktop-friendly layout",
-  "Template deployment",
-  "Live website link",
-  "One minor revision",
-];
-
-
-/* ============================================================
-   BASIC PERSONALIZATION
-============================================================ */
-
-const personalization = [
-  {
-    title: "Names & Text",
-    description:
-      "Your names, greetings, love messages, dates, captions, and other written content can be replaced.",
-  },
-  {
-    title: "Photos",
-    description:
-      "Send your preferred photos and we will place them into the appropriate sections of the template.",
-  },
-  {
-    title: "Music",
-    description:
-      "You may provide your preferred song or music link, subject to platform availability.",
-  },
-  {
-    title: "Details",
-    description:
-      "Dates, nicknames, relationship milestones, short notes, and other basic information can be personalized.",
-  },
-];
-
-
-/* ============================================================
-   ADD-ONS
+/*
+============================================================
+SOCIAL LINKS
 ============================================================
 
-   ADD / REMOVE ITEMS HERE.
-============================================================ */
+EDIT THESE IF YOUR SOCIAL LINKS CHANGE.
+*/
 
-const addons = [
-  {
-    name: "Custom Color Palette",
-    price: "₱60+",
-    description:
-      "Want the template to match your preferred colors? Send your chosen HEX colors or a Color Hunt palette.",
-  },
-  {
-    name: "Extra Revision",
-    price: "₱60+",
-    description:
-      "For revisions beyond the one minor revision included in the base package.",
-  },
-  {
-    name: "Additional Customization",
-    price: "₱65+",
-    description:
-      "Small design/content changes outside the included personalization.",
-  },
-  {
-    name: "Extra Section",
-    price: "₱100+",
-    description:
-      "Need an additional section or content block not included in the selected template?",
-  },
-];
+const SOCIALS = {
+  tiktok: "https://www.tiktok.com/@katestudiooo",
+  telegram: "https://web.telegram.org/k/",
+};
 
+/*
+============================================================
+ICONS
+============================================================
+*/
 
-/* ============================================================
-   CONDITIONS / TERMS
-============================================================ */
-
-const conditions = [
-  "Base price covers personalization of the selected existing template.",
-  "Basic personalization includes names, text, photos, dates, and similar content replacement.",
-  "One minor revision is included after the first version is presented.",
-  "The included revision is for small corrections or minor adjustments only.",
-  "Major redesigns, new sections, structural changes, or additional features may require an add-on fee.",
-  "Custom color palettes are not included in the base price and start at ₱60.",
-  "For custom colors, please provide HEX codes or a palette reference such as Color Hunt.",
-  "Work starts once the required content and materials have been provided.",
-  "Standard delivery is 3–5 days.",
-  "If the website is completed earlier, it may be delivered ahead of the estimated timeframe.",
-  "Delivery time may depend on the completeness of the client's submitted materials and revision requests.",
-  "The client is responsible for providing accurate names, dates, messages, photos, links, and other materials.",
-  "The client must review the final website before approval.",
-  "Once the final version is approved, additional changes may be treated as paid revisions.",
-  "Third-party services, music availability, external links, or platform restrictions are outside Kate Studio's control.",
-];
-
-
-/* ============================================================
-   COMPONENT — ICON
-============================================================ */
-
-function ArrowIcon({ direction = "right" }) {
+function ArrowLeft() {
   return (
-    <span className="arrow-icon" aria-hidden="true">
-      {direction === "left" ? "←" : "→"}
-    </span>
-  );
-}
-
-
-/* ============================================================
-   COMPONENT — TEMPLATE CARD
-============================================================ */
-
-function TemplateCard({ template, onView }) {
-  return (
-    <article className="template-card">
-
-      {/* LIVE TEMPLATE PREVIEW */}
-      <div className="template-preview">
-
-        <iframe
-          src={template.preview}
-          title={`${template.title} live preview`}
-          loading="lazy"
-          scrolling="no"
-        />
-
-        <div className="preview-gradient" />
-
-        <div className="preview-top">
-          <span>{template.id}</span>
-          <span>LIVE PREVIEW</span>
-        </div>
-
-        <div className="preview-bottom">
-          <span>Click below to view full template</span>
-        </div>
-
-      </div>
-
-
-      {/* TEMPLATE INFORMATION */}
-      <div className="template-content">
-
-        <div className="template-meta">
-          <span>{template.id}</span>
-          <span>{template.category}</span>
-        </div>
-
-        <h3>{template.title}</h3>
-
-        <p className="template-description">
-          {template.description}
-        </p>
-
-
-        {/* TAGS */}
-        <div className="template-tags">
-          {template.tags.map((tag) => (
-            <span key={tag}>{tag}</span>
-          ))}
-        </div>
-
-
-        {/* PRICE */}
-        <div className="price-area">
-          <div>
-            <span className="price-label">Starts at</span>
-            <strong>₱{template.price}</strong>
-          </div>
-
-          <button
-            className="view-button"
-            onClick={() => onView(template)}
-          >
-            View Template
-            <ArrowIcon />
-          </button>
-        </div>
-
-      </div>
-
-    </article>
-  );
-}
-
-
-/* ============================================================
-   COMPONENT — TEMPLATE MODAL
-============================================================ */
-
-function TemplateModal({ template, onClose }) {
-  if (!template) return null;
-
-  return (
-    <div
-      className="modal-backdrop"
-      onClick={onClose}
+    <svg
+      width="19"
+      height="19"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
     >
-
-      <div
-        className="template-modal"
-        onClick={(event) => event.stopPropagation()}
-      >
-
-        <button
-          className="modal-close"
-          onClick={onClose}
-          aria-label="Close"
-        >
-          ×
-        </button>
-
-
-        {/* BIG PREVIEW */}
-        <div className="modal-preview">
-
-          <iframe
-            src={template.preview}
-            title={`${template.title} preview`}
-            loading="eager"
-            scrolling="no"
-          />
-
-        </div>
-
-
-        <div className="modal-body">
-
-          <div className="modal-meta">
-            {template.id} · {template.category}
-          </div>
-
-          <h2>{template.title}</h2>
-
-          <div className="modal-price">
-            Starts at <strong>₱{template.price}</strong>
-          </div>
-
-          <p className="modal-description">
-            {template.description}
-          </p>
-
-
-          <div className="modal-section">
-
-            <h3>Perfect for</h3>
-
-            <div className="modal-tags">
-              {template.tags.map((tag) => (
-                <span key={tag}>{tag}</span>
-              ))}
-            </div>
-
-          </div>
-
-
-          <div className="modal-section">
-
-            <h3>Want this template?</h3>
-
-            <p>
-              Send us your preferred template, names, photos,
-              messages, dates, and other details. We'll personalize
-              the existing design for you.
-            </p>
-
-            <a
-              className="modal-live-button"
-              href={template.link}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Open Full Template
-              <ArrowIcon />
-            </a>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
+      <path
+        d="M19 12H5M11 18l-6-6 6-6"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   );
 }
 
+function ArrowRight() {
+  return (
+    <svg
+      width="19"
+      height="19"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M5 12h14M13 6l6 6-6 6"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
 
-/* ============================================================
-   MAIN APP
-============================================================ */
+function HeartIcon() {
+  return (
+    <svg
+      width="17"
+      height="17"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M20.8 8.7c0 5.1-8.8 10.1-8.8 10.1S3.2 13.8 3.2 8.7A4.7 4.7 0 0 1 12 6.4a4.7 4.7 0 0 1 8.8 2.3Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function CheckIcon() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="m5 12 4.2 4.2L19 6.5"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+/*
+============================================================
+MAIN APP
+============================================================
+*/
 
 export default function App() {
+  const carouselRef = useRef(null);
 
-  const [currentPage, setCurrentPage] = useState(0);
-
-  const [selectedTemplate, setSelectedTemplate] =
-    useState(null);
-
-  const [termsChecked, setTermsChecked] =
-    useState(false);
-
+  const [mobileMenu, setMobileMenu] = useState(false);
+  const [agreed, setAgreed] = useState(false);
 
   /*
   ============================================================
-  CAROUSEL SETTINGS
+  CAROUSEL
+  ============================================================
 
-  Desktop = 4 cards
-  Tablet  = 2 cards
-  Mobile  = 1 card
+  Works with:
+  - desktop arrows
+  - mobile arrows
+  - touch/swipe
+  - any number of cards
+  */
 
-  CSS controls how many are visually shown.
-  React only moves the carousel.
+  const scrollCarousel = (direction) => {
+    if (!carouselRef.current) return;
+
+    const carousel = carouselRef.current;
+    const card = carousel.querySelector(".template-card");
+
+    if (!card) return;
+
+    const gap = 22;
+    const amount = card.getBoundingClientRect().width + gap;
+
+    carousel.scrollBy({
+      left: direction * amount,
+      behavior: "smooth",
+    });
+  };
+
+  /*
+  ============================================================
+  SECTION NAVIGATION
   ============================================================
   */
 
-  const totalTemplates = templates.length;
+  const scrollToSection = (id) => {
+    setMobileMenu(false);
 
+    const section = document.getElementById(id);
+
+    if (section) {
+      section.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
 
   /*
-  We use one-card movement.
-  This makes adding templates completely automatic.
+  ============================================================
+  CONTACT MESSAGE
+  ============================================================
   */
 
-  const nextSlide = () => {
+  const contactMessage = useMemo(
+    () =>
+      encodeURIComponent(
+        "Hi Kate Studio! I’m interested in ordering a digital website template. I have read and understood the ordering conditions and would like to ask about the available templates and customization options."
+      ),
+    []
+  );
 
-    setCurrentPage((previous) => {
-
-      if (previous >= totalTemplates - 1) {
-        return 0;
-      }
-
-      return previous + 1;
-    });
-  };
-
-
-  const previousSlide = () => {
-
-    setCurrentPage((previous) => {
-
-      if (previous <= 0) {
-        return totalTemplates - 1;
-      }
-
-      return previous - 1;
-    });
-  };
-
-
-  const goToSlide = (index) => {
-    setCurrentPage(index);
-  };
-
+  const telegramLink = `${SOCIALS.telegram}?text=${contactMessage}`;
 
   return (
     <div className="site-shell">
 
-
       {/* ======================================================
-         TOP BAR
-      ====================================================== */}
+          TOP RIBBON
+          ====================================================== */}
 
       <div className="top-ribbon">
-        <span>Kate Studio</span>
-        <i>✦</i>
-        Digital templates made with care
+        <span>♡</span>
+        Digital websites made with care
+        <span>♡</span>
       </div>
 
-
       {/* ======================================================
-         NAVIGATION
-      ====================================================== */}
+          NAVBAR
+          ====================================================== */}
 
       <header className="navbar">
-
         <div className="nav-inner">
 
-          <a
-            href="#home"
+          <button
             className="brand"
+            onClick={() => scrollToSection("home")}
+            aria-label="Go to homepage"
           >
-            <span className="brand-main">
-              KATE STUDIO
-            </span>
+            <span className="brand-main">KATE STUDIO</span>
+            <span className="brand-sub">DIGITAL LOVE STORIES</span>
+          </button>
 
-            <span className="brand-sub">
-              DIGITAL LOVE EXPERIENCES
-            </span>
-          </a>
-
-
-          <nav className="nav-links">
-
-            <a href="#templates">
+          <nav className={`nav-links ${mobileMenu ? "open" : ""}`}>
+            <button onClick={() => scrollToSection("templates")}>
               Templates
-            </a>
+            </button>
 
-            <a href="#personalization">
-              Personalization
-            </a>
+            <button onClick={() => scrollToSection("included")}>
+              What's Included
+            </button>
 
-            <a href="#addons">
+            <button onClick={() => scrollToSection("addons")}>
               Add-ons
-            </a>
+            </button>
 
-            <a href="#terms">
-              Terms
-            </a>
+            <button onClick={() => scrollToSection("conditions")}>
+              Conditions
+            </button>
 
+            <button onClick={() => scrollToSection("contact")}>
+              Contact
+            </button>
           </nav>
 
+          <button
+            className="mobile-menu"
+            onClick={() => setMobileMenu((value) => !value)}
+            aria-label="Open menu"
+            aria-expanded={mobileMenu}
+          >
+            {mobileMenu ? "×" : "☰"}
+          </button>
         </div>
-
       </header>
 
-
       {/* ======================================================
-         HERO
-      ====================================================== */}
+          HERO
+          ====================================================== */}
 
       <main>
 
-        <section
-          className="hero"
-          id="home"
-        >
+        <section className="hero" id="home">
 
-          <div className="hero-decoration decoration-one">
+          <div className="hero-decoration bow bow-one">
+            ୨୧
+          </div>
+
+          <div className="hero-decoration bow bow-two">
+            ୨୧
+          </div>
+
+          <div className="hero-decoration sparkle sparkle-one">
             ✦
           </div>
 
-          <div className="hero-decoration decoration-two">
-            ♡
-          </div>
-
-          <div className="hero-decoration decoration-three">
+          <div className="hero-decoration sparkle sparkle-two">
             ✧
           </div>
-
 
           <div className="hero-content">
 
             <div className="eyebrow">
-              <span>♡</span>
-              Made for your story
+              <HeartIcon />
+              DIGITAL WEBSITES FOR YOUR FAVORITE PERSON
             </div>
 
             <h1>
-              Little websites
+              A little website
               <br />
-              for <em>big feelings.</em>
+              <em>made just for you.</em>
             </h1>
 
             <p>
-              Personalized digital love experiences designed
-              to turn your memories, messages, and moments
-              into something you can keep and share.
+              Thoughtfully designed digital love stories, letters, and
+              interactive experiences made to turn your memories into
+              something you can keep and share.
             </p>
-
 
             <div className="hero-actions">
 
-              <a
+              <button
                 className="primary-button"
-                href="#templates"
+                onClick={() => scrollToSection("templates")}
               >
                 Browse Templates
-                <ArrowIcon />
-              </a>
+                <ArrowRight />
+              </button>
 
-              <a
+              <button
                 className="text-button"
-                href="#personalization"
+                onClick={() => scrollToSection("conditions")}
               >
-                What's included?
-                <span>↓</span>
-              </a>
+                Read before ordering
+                <span>→</span>
+              </button>
 
             </div>
 
-
-            <div className="hero-note">
-              STARTING AT ₱250 · 3–5 DAY DELIVERY
-            </div>
+            <p className="hero-note">
+              STARTING AT ₱250 · MADE WITH CODE + CARE
+            </p>
 
           </div>
-
         </section>
 
-
         {/* ====================================================
-           TEMPLATE INTRO
-        ==================================================== */}
+            TEMPLATE INTRO
+            ==================================================== */}
 
-        <section className="intro-section">
+        <section className="intro-section" id="templates">
 
           <div className="section-heading centered">
 
@@ -635,142 +458,203 @@ export default function App() {
             </span>
 
             <h2>
-              Choose the feeling.
+              Choose your little corner of the internet.
             </h2>
 
             <p>
-              Pick a template that already feels like you.
-              We'll personalize the content so your final
-              website feels uniquely yours.
+              Pick a template that fits your story. Every website is
+              coded and prepared individually, so your final version
+              feels personal instead of looking like a generic copy-paste page.
             </p>
 
           </div>
-
         </section>
 
-
         {/* ====================================================
-           TEMPLATE GALLERY
-        ==================================================== */}
+            TEMPLATE CAROUSEL
+            ==================================================== */}
 
-        <section
-          className="templates-section"
-          id="templates"
-        >
+        <section className="designs-section">
 
-          <div className="gallery-header">
+          <div className="carousel-heading">
 
             <div>
-
               <span className="mini-label">
-                KATE STUDIO TEMPLATES
+                LIVE PREVIEWS
               </span>
 
               <h2>
-                Made to be experienced.
+                See it before you choose it.
               </h2>
-
             </div>
-
-
-            {/* ARROWS */}
 
             <div className="carousel-controls">
 
               <button
-                className="carousel-arrow"
-                onClick={previousSlide}
-                aria-label="Previous templates"
+                type="button"
+                onClick={() => scrollCarousel(-1)}
+                aria-label="Previous template"
               >
-                ←
+                <ArrowLeft />
               </button>
 
               <button
-                className="carousel-arrow"
-                onClick={nextSlide}
-                aria-label="Next templates"
+                type="button"
+                onClick={() => scrollCarousel(1)}
+                aria-label="Next template"
               >
-                →
+                <ArrowRight />
               </button>
 
             </div>
 
           </div>
 
-
-          {/* ==================================================
-             CAROUSEL
-
-             IMPORTANT:
-             DO NOT EDIT THIS.
-
-             Just add templates above.
-          ================================================== */}
-
-          <div className="carousel-window">
-
-            <div
-              className="carousel-track"
-              style={{
-                transform:
-                  `translateX(-${currentPage * 25}%)`,
-              }}
-            >
-
-              {templates.map((template) => (
-
-                <div
-                  className="carousel-item"
-                  key={template.id}
-                >
-
-                  <TemplateCard
-                    template={template}
-                    onView={setSelectedTemplate}
-                  />
-
-                </div>
-
-              ))}
-
-            </div>
-
-          </div>
-
-
-          {/* DOTS */}
-
-          <div className="carousel-dots">
+          <div
+            className="design-carousel"
+            ref={carouselRef}
+            aria-label="Template carousel"
+          >
 
             {templates.map((template, index) => (
 
-              <button
+              <article
+                className="template-card"
                 key={template.id}
-                className={
-                  index === currentPage
-                    ? "carousel-dot active"
-                    : "carousel-dot"
-                }
-                onClick={() => goToSlide(index)}
-                aria-label={`Go to ${template.id}`}
-              />
+                style={{
+                  "--card-index": index,
+                }}
+              >
+
+                {/* LIVE WEBSITE PREVIEW */}
+
+                <div className="template-preview">
+
+                  <iframe
+                    src={template.preview}
+                    title={`${template.title} live preview`}
+                    loading="lazy"
+                    scrolling="yes"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                  />
+
+                  <div className="preview-overlay">
+
+                    <span className="preview-label">
+                      LIVE PREVIEW · {template.id}
+                    </span>
+
+                    <a
+                      className="preview-open"
+                      href={template.link}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Open full site ↗
+                    </a>
+
+                  </div>
+
+                </div>
+
+                {/* TEMPLATE INFORMATION */}
+
+                <div className="template-info">
+
+                  <div className="template-topline">
+
+                    <span className="template-code">
+                      {template.id}
+                    </span>
+
+                    <span className="template-category">
+                      {template.category}
+                    </span>
+
+                  </div>
+
+                  <h3>
+                    {template.title}
+                  </h3>
+
+                  <p className="template-description">
+                    {template.description}
+                  </p>
+
+                  <div className="perfect-for">
+
+                    <span>
+                      PERFECT FOR
+                    </span>
+
+                    <p>
+                      {template.perfectFor}
+                    </p>
+
+                  </div>
+
+                  <div className="included-mini">
+
+                    {template.included
+                      .slice(0, 4)
+                      .map((item) => (
+
+                        <span key={item}>
+                          <CheckIcon />
+                          {item}
+                        </span>
+
+                      ))}
+
+                  </div>
+
+                  <div className="price-row">
+
+                    <div>
+
+                      <span className="price-label">
+                        STARTING PRICE
+                      </span>
+
+                      <strong>
+                        ₱{template.price}
+                      </strong>
+
+                    </div>
+
+                    <a
+                      className="view-button"
+                      href={template.link}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      View Template
+                      <ArrowRight />
+                    </a>
+
+                  </div>
+
+                </div>
+
+              </article>
 
             ))}
 
           </div>
 
-
-          <p className="gallery-note">
-            More templates will be added to the collection.
-            <span>♡</span>
-          </p>
+          <div className="carousel-hint">
+            <ArrowLeft />
+            <span>
+              Swipe or use the arrows to explore
+            </span>
+            <ArrowRight />
+          </div>
 
         </section>
 
-
         {/* ====================================================
-           WHY KATE STUDIO
-        ==================================================== */}
+            WHY KATE STUDIO
+            ==================================================== */}
 
         <section className="why-section">
 
@@ -785,30 +669,28 @@ export default function App() {
               <h2>
                 Not just a template.
                 <br />
-                <em>It's yours.</em>
+                <em>It's your story.</em>
               </h2>
 
               <p>
-                Every template is coded and designed with
-                intention. Instead of giving you a generic
-                file and leaving you to figure everything out,
-                Kate Studio handles the personalization and
-                deployment for you.
+                Every website is coded and customized with intention.
+                The goal isn't to give you another generic downloadable
+                template — it's to give you a little digital space that
+                feels like it belongs to the two of you.
               </p>
 
               <p>
-                You choose the design. You provide the story.
-                We turn them into a little digital experience
-                made specifically for you.
+                Kate Studio focuses on clean responsive design,
+                thoughtful details, and experiences that work beautifully
+                on both phones and desktops.
               </p>
 
             </div>
 
-
             <div className="promise-card">
 
               <div className="promise-icon">
-                ✿
+                ♡
               </div>
 
               <h3>
@@ -818,18 +700,16 @@ export default function App() {
               <div className="promise-line" />
 
               <p>
-                Built from scratch with responsive,
-                lightweight code so your website looks
-                beautiful without unnecessary heaviness.
+                Built using real web development practices with
+                responsive layouts, clean structure, and attention
+                to the little details.
               </p>
 
               <div className="promise-details">
-
                 <span>RESPONSIVE</span>
-                <span>LIGHTWEIGHT</span>
                 <span>PERSONALIZED</span>
-                <span>DEPLOYED</span>
-
+                <span>MOBILE FRIENDLY</span>
+                <span>HAND CODED</span>
               </div>
 
             </div>
@@ -838,413 +718,426 @@ export default function App() {
 
         </section>
 
-
         {/* ====================================================
-           PERSONALIZATION
-        ==================================================== */}
+            WHAT'S INCLUDED
+            ==================================================== */}
 
-        <section
-          className="personalization-section"
-          id="personalization"
-        >
+        <section className="process-section" id="included">
 
           <div className="section-heading centered">
 
             <span className="mini-label">
-              BASIC PERSONALIZATION
+              WHAT YOU GET
             </span>
 
             <h2>
-              What's included?
+              Simple from order to delivery.
             </h2>
 
             <p>
-              Your selected template already comes with
-              basic personalization. You don't need to
-              rebuild the website yourself.
+              The base price already covers the essentials.
+              You only pay more when you request something
+              outside the standard personalization.
             </p>
 
           </div>
-
-
-          <div className="personalization-grid">
-
-            {personalization.map((item, index) => (
-
-              <article
-                className="personalization-card"
-                key={item.title}
-              >
-
-                <span className="card-number">
-                  0{index + 1}
-                </span>
-
-                <div className="small-icon">
-                  ✦
-                </div>
-
-                <h3>
-                  {item.title}
-                </h3>
-
-                <p>
-                  {item.description}
-                </p>
-
-              </article>
-
-            ))}
-
-          </div>
-
-
-          <div className="included-box">
-
-            <div>
-
-              <span className="mini-label">
-                INCLUDED IN THE BASE PRICE
-              </span>
-
-              <h3>
-                Your little details,
-                <br />
-                already taken care of.
-              </h3>
-
-            </div>
-
-
-            <div className="included-list">
-
-              {included.map((item) => (
-
-                <div key={item}>
-                  <span className="check">
-                    ✓
-                  </span>
-
-                  {item}
-                </div>
-
-              ))}
-
-            </div>
-
-          </div>
-
-        </section>
-
-
-        {/* ====================================================
-           ADD-ONS
-        ==================================================== */}
-
-        <section
-          className="addons-section"
-          id="addons"
-        >
-
-          <div className="section-heading centered">
-
-            <span className="mini-label">
-              WANT A LITTLE EXTRA?
-            </span>
-
-            <h2>
-              Add-ons
-            </h2>
-
-            <p>
-              Basic personalization is included. Additional
-              design work can be requested separately.
-              Add-ons start at ₱60.
-            </p>
-
-          </div>
-
-
-          <div className="addon-grid">
-
-            {addons.map((addon, index) => (
-
-              <article
-                className="addon-card"
-                key={addon.name}
-              >
-
-                <span className="addon-number">
-                  0{index + 1}
-                </span>
-
-                <h3>
-                  {addon.name}
-                </h3>
-
-                <p>
-                  {addon.description}
-                </p>
-
-                <strong>
-                  {addon.price}
-                </strong>
-
-              </article>
-
-            ))}
-
-          </div>
-
-
-          <div className="palette-note">
-
-            <div className="palette-symbol">
-              ◌
-            </div>
-
-            <div>
-
-              <strong>
-                About custom colors
-              </strong>
-
-              <p>
-                The template's original color palette is
-                included. If you want a different custom
-                palette, that's an add-on starting at ₱60.
-                You can send HEX codes or choose a palette
-                from Color Hunt.
-              </p>
-
-            </div>
-
-          </div>
-
-        </section>
-
-
-        {/* ====================================================
-           PROCESS
-        ==================================================== */}
-
-        <section className="process-section">
-
-          <div className="section-heading centered">
-
-            <span className="mini-label">
-              HOW IT WORKS
-            </span>
-
-            <h2>
-              Simple from start to finish.
-            </h2>
-
-          </div>
-
 
           <div className="process-grid">
 
-            <article className="process-card">
+            <div className="process-card">
               <span>01</span>
+              <div className="process-icon">♡</div>
 
-              <div className="process-icon">
-                ♡
-              </div>
-
-              <h3>
-                Choose
-              </h3>
+              <h3>Choose</h3>
 
               <p>
-                Pick your preferred Kate Studio template
-                and send us your order details.
+                Pick your favorite template and send the details
+                needed for personalization.
               </p>
+            </div>
 
-            </article>
-
-
-            <article className="process-card">
+            <div className="process-card">
               <span>02</span>
+              <div className="process-icon">✎</div>
 
-              <div className="process-icon">
-                ✎
-              </div>
-
-              <h3>
-                Send
-              </h3>
+              <h3>Personalize</h3>
 
               <p>
-                Provide your names, messages, photos,
-                dates, music, and other details.
+                Names, messages, dates, photos, and other included
+                content are prepared for you.
               </p>
+            </div>
 
-            </article>
-
-
-            <article className="process-card">
+            <div className="process-card">
               <span>03</span>
+              <div className="process-icon">⌘</div>
 
-              <div className="process-icon">
-                ✦
-              </div>
-
-              <h3>
-                We code
-              </h3>
+              <h3>Code</h3>
 
               <p>
-                We personalize and prepare your selected
-                template for you.
+                Your website is edited, tested, and optimized
+                for different screen sizes.
               </p>
+            </div>
 
-            </article>
-
-
-            <article className="process-card">
+            <div className="process-card">
               <span>04</span>
+              <div className="process-icon">♡</div>
 
-              <div className="process-icon">
-                ✓
-              </div>
-
-              <h3>
-                Review
-              </h3>
+              <h3>Review</h3>
 
               <p>
-                You'll receive the first version and may
-                request one minor revision.
+                You receive a preview and can request the
+                included minor revision before final approval.
               </p>
+            </div>
 
-            </article>
-
-
-            <article className="process-card">
+            <div className="process-card">
               <span>05</span>
+              <div className="process-icon">↗</div>
 
-              <div className="process-icon">
-                ↗
-              </div>
-
-              <h3>
-                Receive
-              </h3>
+              <h3>Deliver</h3>
 
               <p>
-                Once approved, we'll provide your live
-                website link.
+                Expected delivery is 3–5 days. If your website
+                is completed sooner, it may be delivered ahead
+                of schedule.
               </p>
-
-            </article>
+            </div>
 
           </div>
 
         </section>
 
+        {/* ====================================================
+            ADD-ONS
+            ==================================================== */}
+
+        <section className="addons-section" id="addons">
+
+          <div className="section-heading centered">
+
+            <span className="mini-label">
+              OPTIONAL ADD-ONS
+            </span>
+
+            <h2>
+              Want a little extra?
+            </h2>
+
+            <p>
+              The base template already comes with basic personalization.
+              Add-ons are only charged when they require additional
+              design, coding, editing, or preparation.
+            </p>
+
+          </div>
+
+          <div className="addon-grid">
+
+            <div className="addon-card">
+
+              <span className="addon-number">
+                ADD-ON 01
+              </span>
+
+              <h3>
+                Custom Color Palette
+              </h3>
+
+              <p>
+                Want something other than the original template colors?
+                Request a custom palette based on your preferred colors
+                or reference.
+              </p>
+
+              <strong>
+                STARTS AT ₱60
+              </strong>
+
+            </div>
+
+            <div className="addon-card">
+
+              <span className="addon-number">
+                ADD-ON 02
+              </span>
+
+              <h3>
+                Extra Revision
+              </h3>
+
+              <p>
+                One minor revision is included after the initial preview.
+                Additional revision rounds may require an extra fee
+                depending on the amount of work.
+              </p>
+
+              <strong>
+                QUOTED DEPENDING ON WORK
+              </strong>
+
+            </div>
+
+            <div className="addon-card">
+
+              <span className="addon-number">
+                ADD-ON 03
+              </span>
+
+              <h3>
+                Custom Feature
+              </h3>
+
+              <p>
+                Want a feature that isn't already part of the template?
+                Examples include new sections, interactions, special
+                effects, or custom functionality.
+              </p>
+
+              <strong>
+                QUOTED FIRST
+              </strong>
+
+            </div>
+
+            <div className="addon-card">
+
+              <span className="addon-number">
+                ADD-ON 04
+              </span>
+
+              <h3>
+                Extra Content
+              </h3>
+
+              <p>
+                Additional pages, sections, media preparation,
+                or unusually large amounts of content may require
+                additional work.
+              </p>
+
+              <strong>
+                QUOTED DEPENDING ON WORK
+              </strong>
+
+            </div>
+
+          </div>
+
+          <div className="color-note">
+
+            <span>
+              TIP
+            </span>
+
+            For custom colors, send the HEX codes you want.
+            You can find palette inspiration from Color Hunt.
+
+          </div>
+
+        </section>
 
         {/* ====================================================
-           DELIVERY BANNER
-        ==================================================== */}
+            BASIC PERSONALIZATION
+            ==================================================== */}
 
-        <section className="delivery-section">
+        <section className="info-banner">
 
-          <div className="delivery-inner">
+          <div className="info-banner-inner">
 
             <div>
 
               <span className="mini-label">
-                DELIVERY
+                BASIC PERSONALIZATION
               </span>
 
               <h2>
-                3–5 days,
-                <br />
-                sometimes sooner.
+                Make the template yours.
               </h2>
 
               <p>
-                Our standard delivery time is 3–5 days.
-                If your website is completed earlier,
-                we'll gladly send it ahead of schedule.
+                Basic personalization includes changing the names,
+                messages, dates, photos, and other editable content
+                already designed into the chosen template.
               </p>
 
             </div>
 
-
-            <div className="delivery-badge">
-
-              <span>
-                ESTIMATED
-              </span>
-
-              <strong>
-                3–5
-              </strong>
-
-              <span>
-                DAYS
-              </span>
-
+            <div className="file-badges">
+              <span>TEXT</span>
+              <span>PHOTOS</span>
+              <span>NAMES</span>
+              <span>DATES</span>
             </div>
 
           </div>
 
         </section>
 
-
         {/* ====================================================
-           TERMS
-        ==================================================== */}
+            CONDITIONS
+            ==================================================== */}
 
-        <section
-          className="terms-section"
-          id="terms"
-        >
+        <section className="terms-section" id="conditions">
 
           <div className="terms-card">
 
             <div className="section-heading">
 
               <span className="mini-label">
-                BEFORE YOU ORDER
+                PLEASE READ BEFORE ORDERING
               </span>
 
               <h2>
-                A few important things.
+                Small rules that keep everything clear.
               </h2>
 
               <p>
-                Please read these before placing an order
-                so expectations are clear for both sides.
+                Please review these conditions before sending
+                your order so both sides know what is included.
               </p>
 
             </div>
 
-
             <div className="terms-grid">
 
-              {conditions.map((condition, index) => (
+              <div>
+                <h3>01 · PAYMENT</h3>
 
-                <div key={condition}>
+                <p>
+                  Orders are confirmed according to the payment
+                  arrangement communicated by Kate Studio before
+                  work begins. Work may start once the required
+                  payment or confirmation has been received.
+                </p>
+              </div>
 
-                  <span>
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
+              <div>
+                <h3>02 · DELIVERY</h3>
 
-                  <p>
-                    {condition}
-                  </p>
+                <p>
+                  Standard estimated delivery is 3–5 days.
+                  This is an estimate, not a guaranteed exact
+                  delivery time. Completed websites may be
+                  delivered earlier.
+                </p>
+              </div>
 
-                </div>
+              <div>
+                <h3>03 · CONTENT</h3>
 
-              ))}
+                <p>
+                  The buyer is responsible for providing accurate
+                  names, messages, dates, photos, links, and other
+                  requested content. Delays in receiving complete
+                  content may affect delivery.
+                </p>
+              </div>
+
+              <div>
+                <h3>04 · ONE MINOR REVISION</h3>
+
+                <p>
+                  One minor revision is included after the initial
+                  preview. Minor means small text, image, spacing,
+                  or similar adjustments that do not require
+                  redesigning the template.
+                </p>
+              </div>
+
+              <div>
+                <h3>05 · MAJOR CHANGES</h3>
+
+                <p>
+                  Major redesigns, new sections, custom features,
+                  substantial layout changes, or extensive content
+                  changes are not included in the base price and
+                  may be quoted separately.
+                </p>
+              </div>
+
+              <div>
+                <h3>06 · COLOR CHANGES</h3>
+
+                <p>
+                  The original template palette is included.
+                  A fully custom color palette is an optional
+                  add-on starting at ₱60 because colors may need
+                  to be adjusted across multiple design elements.
+                </p>
+              </div>
+
+              <div>
+                <h3>07 · APPROVAL</h3>
+
+                <p>
+                  Please review the preview carefully before final
+                  approval. Once approved, additional changes may
+                  be treated as a new revision or add-on depending
+                  on the work required.
+                </p>
+              </div>
+
+              <div>
+                <h3>08 · TEMPLATE RIGHTS</h3>
+
+                <p>
+                  The purchase covers the personalized website
+                  service for the buyer. Original template code,
+                  design systems, assets, and reusable source
+                  materials remain the property of Kate Studio
+                  unless otherwise agreed.
+                </p>
+              </div>
+
+              <div>
+                <h3>09 · THIRD-PARTY SERVICES</h3>
+
+                <p>
+                  External services, hosting, domains, paid fonts,
+                  paid assets, music licensing, or other third-party
+                  costs are not automatically included unless
+                  specifically stated.
+                </p>
+              </div>
+
+              <div>
+                <h3>10 · CONTENT RESPONSIBILITY</h3>
+
+                <p>
+                  Buyers are responsible for having permission to
+                  provide and use the photos, music, messages, logos,
+                  and other content supplied for their website.
+                </p>
+              </div>
+
+              <div>
+                <h3>11 · PRIVACY</h3>
+
+                <p>
+                  Information and files submitted for customization
+                  should be limited to what is necessary for the order.
+                  Do not send passwords, payment-card details, or
+                  other sensitive account credentials.
+                </p>
+              </div>
+
+              <div>
+                <h3>12 · COMMUNICATION</h3>
+
+                <p>
+                  Please keep order details and revision requests
+                  in the designated communication channel so
+                  instructions remain clear and can be properly followed.
+                </p>
+              </div>
 
             </div>
 
-
-            {/* WORKING CHECKBOX */}
+            {/* ==================================================
+                WORKING AGREEMENT CHECKBOX
+                ================================================== */}
 
             <div className="agreement-box">
 
@@ -1252,83 +1145,72 @@ export default function App() {
 
                 <input
                   type="checkbox"
-                  checked={termsChecked}
+                  checked={agreed}
                   onChange={(event) =>
-                    setTermsChecked(
-                      event.target.checked
-                    )
+                    setAgreed(event.target.checked)
                   }
                 />
 
                 <span className="custom-checkbox">
-
-                  {termsChecked && "✓"}
-
+                  {agreed && <CheckIcon />}
                 </span>
 
-
                 <span>
-                  I have read and understood the
-                  personalization, revision, delivery,
-                  add-on, and approval conditions above.
+                  I have read and understood the information above,
+                  including the pricing, delivery estimate,
+                  personalization scope, revision policy,
+                  add-ons, and ordering conditions.
                 </span>
 
               </label>
 
-
-              <div className="agreement-status">
-
-                {termsChecked
-                  ? "✓ You may now contact Kate Studio."
-                  : "Please check the box before contacting us."}
-
-              </div>
-
+              {/* CONTACT BUTTONS ONLY APPEAR ENABLED AFTER CHECKING */}
 
               <div className="locked-buttons">
 
                 <a
-                  href={termsChecked ? SOCIALS.tiktok : undefined}
-                  target={termsChecked ? "_blank" : undefined}
+                  className={`locked-contact telegram ${
+                    agreed ? "enabled" : ""
+                  }`}
+                  href={agreed ? telegramLink : undefined}
+                  target="_blank"
                   rel="noreferrer"
-                  className={
-                    termsChecked
-                      ? "contact-button enabled"
-                      : "contact-button"
-                  }
+                  aria-disabled={!agreed}
                   onClick={(event) => {
-                    if (!termsChecked) {
+                    if (!agreed) {
                       event.preventDefault();
                     }
                   }}
                 >
-                  TikTok
+                  Message on Telegram ↗
                 </a>
 
-
                 <a
-                  href={
-                    termsChecked
-                      ? SOCIALS.telegram
-                      : undefined
-                  }
-                  target={termsChecked ? "_blank" : undefined}
+                  className={`locked-contact tiktok ${
+                    agreed ? "enabled" : ""
+                  }`}
+                  href={agreed ? SOCIALS.tiktok : undefined}
+                  target="_blank"
                   rel="noreferrer"
-                  className={
-                    termsChecked
-                      ? "contact-button enabled telegram"
-                      : "contact-button"
-                  }
+                  aria-disabled={!agreed}
                   onClick={(event) => {
-                    if (!termsChecked) {
+                    if (!agreed) {
                       event.preventDefault();
                     }
                   }}
                 >
-                  Telegram
+                  Visit TikTok ↗
                 </a>
 
               </div>
+
+              <p className="agreement-note">
+
+                {agreed
+                  ? "You're all set — you can now contact Kate Studio."
+                  : "Please check the box above to enable the contact buttons."}
+
+              </p>
 
             </div>
 
@@ -1336,91 +1218,50 @@ export default function App() {
 
         </section>
 
+        {/* ====================================================
+            FAQ
+            ==================================================== */}
+
+        <FAQ />
 
         {/* ====================================================
-           CONTACT
-        ==================================================== */}
+            CONTACT
+            ====================================================
 
-        <section className="contact-section">
+            No duplicate direct-contact buttons here.
+            The actual contact buttons are in Conditions,
+            after the checkbox.
+            ==================================================== */}
 
-          <div className="contact-decoration">
-            ♡
-          </div>
+        <section className="contact-section" id="contact">
 
           <div className="contact-content">
 
+            <div className="contact-decoration">
+              ୨୧
+            </div>
+
             <span className="mini-label">
-              HAVE A TEMPLATE IN MIND?
+              READY WHEN YOU ARE
             </span>
 
             <h2>
-              Let's make it yours.
+              Let's make something sweet.
             </h2>
 
             <p>
-              Choose a design, prepare your little details,
-              and let Kate Studio handle the rest.
+              Choose a template, prepare your content, and
+              review the ordering conditions above. Once you've
+              checked the agreement box, you can contact Kate Studio.
             </p>
 
-
-            <div className="contact-buttons">
-
-              <a
-                className={
-                  termsChecked
-                    ? "contact-button large enabled"
-                    : "contact-button large"
-                }
-                href={
-                  termsChecked
-                    ? SOCIALS.tiktok
-                    : undefined
-                }
-                target={
-                  termsChecked
-                    ? "_blank"
-                    : undefined
-                }
-                rel="noreferrer"
-                onClick={(event) => {
-                  if (!termsChecked) {
-                    event.preventDefault();
-                  }
-                }}
-              >
-                Message on TikTok
-                <ArrowIcon />
-              </a>
-
-
-              <a
-                className={
-                  termsChecked
-                    ? "contact-button large telegram enabled"
-                    : "contact-button large telegram"
-                }
-                href={
-                  termsChecked
-                    ? SOCIALS.telegram
-                    : undefined
-                }
-                target={
-                  termsChecked
-                    ? "_blank"
-                    : undefined
-                }
-                rel="noreferrer"
-                onClick={(event) => {
-                  if (!termsChecked) {
-                    event.preventDefault();
-                  }
-                }}
-              >
-                Contact on Telegram
-                <ArrowIcon />
-              </a>
-
-            </div>
+            <button
+              className="contact-button"
+              onClick={() => scrollToSection("conditions")}
+            >
+              Review Conditions & Contact
+              <ArrowRight />
+            </button>
 
           </div>
 
@@ -1428,10 +1269,9 @@ export default function App() {
 
       </main>
 
-
       {/* ======================================================
-         FOOTER
-      ====================================================== */}
+          FOOTER
+          ====================================================== */}
 
       <footer className="footer">
 
@@ -1444,13 +1284,24 @@ export default function App() {
             </span>
 
             <span className="brand-sub">
-              DIGITAL LOVE EXPERIENCES
+              DIGITAL LOVE STORIES
             </span>
 
           </div>
 
+          <p>
+            Thoughtfully designed & coded digital experiences.
+          </p>
 
           <div className="footer-links">
+
+            <button onClick={() => scrollToSection("templates")}>
+              Templates
+            </button>
+
+            <button onClick={() => scrollToSection("conditions")}>
+              Conditions
+            </button>
 
             <a
               href={SOCIALS.tiktok}
@@ -1468,32 +1319,128 @@ export default function App() {
               Telegram
             </a>
 
-            <a href="#terms">
-              Terms
-            </a>
-
           </div>
 
         </div>
 
-
-        <p className="copyright">
-          © {new Date().getFullYear()} Kate Studio.
-          Designed & coded with care.
-        </p>
+        <div className="copyright">
+          © {new Date().getFullYear()} Kate Studio. All rights reserved.
+        </div>
 
       </footer>
 
-
-      {/* ======================================================
-         MODAL
-      ====================================================== */}
-
-      <TemplateModal
-        template={selectedTemplate}
-        onClose={() => setSelectedTemplate(null)}
-      />
-
     </div>
+  );
+}
+
+/*
+============================================================
+FAQ COMPONENT
+============================================================
+*/
+
+function FAQ() {
+  const [openIndex, setOpenIndex] = useState(null);
+
+  const questions = [
+    {
+      question: "What does basic personalization include?",
+      answer:
+        "Basic personalization includes the editable content already intended by the chosen template, such as names, messages, dates, photos, and similar content replacement.",
+    },
+
+    {
+      question: "Can I request a different color?",
+      answer:
+        "Yes. The original template color palette is included. A custom color palette is an optional add-on starting at ₱60 because changing colors throughout a design can require additional editing.",
+    },
+
+    {
+      question: "Can I request something that isn't in the template?",
+      answer:
+        "Yes, depending on the request. New sections, custom interactions, major layout changes, and other features may require an additional fee. The price will be discussed before the extra work begins.",
+    },
+
+    {
+      question: "How long does the website take?",
+      answer:
+        "The standard estimated delivery is 3–5 days. If your website is completed earlier, it may be delivered ahead of schedule.",
+    },
+
+    {
+      question: "Is a revision included?",
+      answer:
+        "Yes. One minor revision is included after the initial preview. Larger changes or additional revision rounds may have an additional fee.",
+    },
+
+    {
+      question: "Do I need to know how to code?",
+      answer:
+        "No. You only need to provide the information and files requested for your chosen template. Kate Studio handles the coding and website preparation.",
+    },
+  ];
+
+  return (
+    <section className="faq-section">
+
+      <div className="section-heading centered">
+
+        <span className="mini-label">
+          FAQ
+        </span>
+
+        <h2>
+          A few things you might be wondering.
+        </h2>
+
+      </div>
+
+      <div className="faq-list">
+
+        {questions.map((item, index) => {
+
+          const isOpen = openIndex === index;
+
+          return (
+            <div
+              className={`faq-item ${
+                isOpen ? "open" : ""
+              }`}
+              key={item.question}
+            >
+
+              <button
+                className="faq-question"
+                onClick={() =>
+                  setOpenIndex(
+                    isOpen ? null : index
+                  )
+                }
+                aria-expanded={isOpen}
+              >
+
+                <span>
+                  {item.question}
+                </span>
+
+                <span className="faq-plus">
+                  {isOpen ? "−" : "+"}
+                </span>
+
+              </button>
+
+              <div className="faq-answer">
+                <p>
+                  {item.answer}
+                </p>
+              </div>
+
+            </div>
+          );
+        })}
+
+      </div>
+
+    </section>
   );
 }
