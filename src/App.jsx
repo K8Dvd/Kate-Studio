@@ -31,7 +31,7 @@ const templates = [
     id: "T001",
     title: "Love Story",
     category: "Romantic Website",
-    price: 250,
+    price: 189,
 
     // TEMPLATE WEBSITE URL
     preview: "https://t001-love-story-template.netlify.app/",
@@ -56,7 +56,7 @@ const templates = [
     id: "T002",
     title: "Love Notes",
     category: "Interactive Love Letter",
-    price: 250,
+    price: 189,
 
     // TEMPLATE WEBSITE URL
     preview: "https://t002-love-notes-template.netlify.app/#dear-you",
@@ -148,7 +148,7 @@ EDIT THESE IF YOUR SOCIAL LINKS CHANGE.
 
 const SOCIALS = {
   tiktok: "https://www.tiktok.com/@katestudiooo",
-  telegram: "https://web.telegram.org/k/",
+  telegram: "https://t.me/+ReaPEaPaGKs3MmVl",
 };
 
 /*
