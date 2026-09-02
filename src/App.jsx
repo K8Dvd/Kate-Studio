@@ -56,7 +56,7 @@ const templates = [
     id: "T002",
     title: "Love Notes",
     category: "Interactive Love Letter",
-    price: 189,
+    price: 195,
 
     // TEMPLATE WEBSITE URL
     preview: "https://t002-love-notes-template.netlify.app/#dear-you",
