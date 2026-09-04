@@ -103,6 +103,32 @@ const templates = [
     ],
   },
 
+    {
+    id: "T004",
+    title: "Our Little Garden",
+    category: "Interactive Garden Experience",
+    price: 399,
+    // TEMPLATE WEBSITE URL
+    preview: "https://t004-our-little-garden-template.netlify.app/",
+    link: "https://t004-our-little-garden-template.netlify.app/",
+    description:
+      "A dreamy little garden where your love story blooms through flowers, memories, promises, music, and a bouquet made just for you.",
+    perfectFor:
+      "Anniversaries, birthdays, Valentine's Day, monthsaries, proposals, and romantic surprises for someone special.",
+    included: [
+      "Responsive website",
+      "Basic personalization",
+      "Names & text replacement",
+      "Photo replacement",
+      "Interactive flower selection",
+      "Custom bouquet builder",
+      "Flower messages",
+      "Keepsake bouquet feature",
+      "Animated garden elements",
+      "Mobile-friendly layout",
+    ],
+  },
+
   /*
   ============================================================
   ADD NEW TEMPLATES HERE
