@@ -31,7 +31,7 @@ const templates = [
     id: "T001",
     title: "Love Story",
     category: "Romantic Website",
-    price: 189,
+    price: 200,
 
     // TEMPLATE WEBSITE URL
     preview: "https://t001-love-story-template.netlify.app/",
@@ -56,7 +56,7 @@ const templates = [
     id: "T002",
     title: "Love Notes",
     category: "Interactive Love Letter",
-    price: 195,
+    price: 240,
 
     // TEMPLATE WEBSITE URL
     preview: "https://t002-love-notes-template.netlify.app/#dear-you",
@@ -128,6 +128,66 @@ const templates = [
       "Mobile-friendly layout",
     ],
   },
+
+  {
+    id: "B001",
+    title: "Museum of Us",
+    category: "Interactive Memory Experience",
+    price: 200,
+
+    // TEMPLATE WEBSITE URL
+    preview: "https://b001-museum-of-us-template.netlify.app/",
+    link: "https://b001-museum-of-us-template.netlify.app/",
+
+    description:
+      "A little digital museum dedicated to your love story, where your favorite memories, photos, letters, music, and special moments come together in one beautiful experience.",
+
+    perfectFor:
+      "Anniversaries, birthdays, Valentine's Day, monthsaries, proposals, and meaningful romantic surprises.",
+
+    included: [
+      "Responsive website",
+      "Basic personalization",
+      "Names & text replacement",
+      "Photo replacement",
+      "Interactive museum experience",
+      "Curator note / love letter",
+      "Background music",
+      "Animated museum elements",
+      "Mobile-friendly layout",
+    ],
+  },
+
+  {
+    id: "T006",
+    title: "Mini Polaroid",
+    category: "Interactive Memory Experience",
+    price: 240,
+
+    // TEMPLATE WEBSITE URL
+    preview: "https://t006-mini-polaroid-template.netlify.app/",
+    link: "https://t006-mini-polaroid-template.netlify.app/",
+
+    description:
+      "A cute little collection of your favorite memories, presented as interactive polaroids with photos, a handwritten letter, music, and sweet little animations.",
+
+    perfectFor:
+      "Anniversaries, birthdays, Valentine's Day, monthsaries, long-distance couples, and cute romantic surprises.",
+
+    included: [
+      "Responsive website",
+      "Basic personalization",
+      "Names & text replacement",
+      "Photo replacement",
+      "Interactive polaroid memories",
+      "Handwritten letter section",
+      "Background music",
+      "Animated elements",
+      "Mobile-friendly layout",
+    ],
+  },
+
+
 
   /*
   ============================================================
