@@ -525,7 +525,7 @@ export default function App() {
             </div>
 
             <p className="hero-note">
-              STARTING AT ₱250 · MADE WITH CODE + CARE
+              STARTING AT ₱200 · MADE WITH CODE + CARE
             </p>
 
           </div>
