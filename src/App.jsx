@@ -31,7 +31,7 @@ const templates = [
     id: "T001",
     title: "Love Story",
     category: "Romantic Website",
-    price: 200,
+    price: 189,
 
     // TEMPLATE WEBSITE URL
     preview: "https://t001-love-story-template.netlify.app/",
