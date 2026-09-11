@@ -133,7 +133,7 @@ const templates = [
     id: "B001",
     title: "Museum of Us",
     category: "Interactive Memory Experience",
-    price: 399,
+    price: 259,
 
     // TEMPLATE WEBSITE URL
     preview: "https://b001-museum-of-us-template.netlify.app/",
