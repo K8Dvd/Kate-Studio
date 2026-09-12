@@ -27,6 +27,67 @@ IMPORTANT:
 */
 
 const templates = [
+
+  {
+  id: "S001",
+  title: "Bubble World",
+  category: "Interactive Love Experience",
+  price: 269,
+
+  // TEMPLATE WEBSITE URL
+  preview: "https://s001-bubble-world-template.netlify.app/",
+  link: "https://s001-bubble-world-template.netlify.app/",
+
+  description:
+    "A dreamy little world made for two, where bubbles, memories, music, sweet messages, and interactive surprises come together in one playful romantic experience.",
+
+  perfectFor:
+    "Anniversaries, birthdays, Valentine's Day, monthsaries, long-distance couples, and cute romantic surprises.",
+
+  included: [
+    "Responsive website",
+    "Basic personalization",
+    "Names & text replacement",
+    "Photo replacement",
+    "12 photo memories",
+    "Interactive bubble surprise",
+    "Love story sections",
+    "Love letter section",
+    "Background music",
+    "Animated elements",
+    "Mobile-friendly layout",
+  ],
+},
+
+  {
+    id: "B001",
+    title: "Museum of Us",
+    category: "Interactive Memory Experience",
+    price: 259,
+
+    // TEMPLATE WEBSITE URL
+    preview: "https://b001-museum-of-us-template.netlify.app/",
+    link: "https://b001-museum-of-us-template.netlify.app/",
+
+    description:
+      "A little digital museum dedicated to your love story, where your favorite memories, photos, letters, music, and special moments come together in one beautiful experience.",
+
+    perfectFor:
+      "Anniversaries, birthdays, Valentine's Day, monthsaries, proposals, and meaningful romantic surprises.",
+
+    included: [
+      "Responsive website",
+      "Basic personalization",
+      "Names & text replacement",
+      "Photo replacement",
+      "Interactive museum experience",
+      "Curator note / love letter",
+      "Background music",
+      "Animated museum elements",
+      "Mobile-friendly layout",
+    ],
+  },
+  
   {
     id: "T001",
     title: "Love Story",
@@ -129,34 +190,7 @@ const templates = [
     ],
   },
 
-  {
-    id: "B001",
-    title: "Museum of Us",
-    category: "Interactive Memory Experience",
-    price: 259,
-
-    // TEMPLATE WEBSITE URL
-    preview: "https://b001-museum-of-us-template.netlify.app/",
-    link: "https://b001-museum-of-us-template.netlify.app/",
-
-    description:
-      "A little digital museum dedicated to your love story, where your favorite memories, photos, letters, music, and special moments come together in one beautiful experience.",
-
-    perfectFor:
-      "Anniversaries, birthdays, Valentine's Day, monthsaries, proposals, and meaningful romantic surprises.",
-
-    included: [
-      "Responsive website",
-      "Basic personalization",
-      "Names & text replacement",
-      "Photo replacement",
-      "Interactive museum experience",
-      "Curator note / love letter",
-      "Background music",
-      "Animated museum elements",
-      "Mobile-friendly layout",
-    ],
-  },
+  
 
   {
     id: "T006",
@@ -186,6 +220,8 @@ const templates = [
       "Mobile-friendly layout",
     ],
   },
+
+  
 
 
 
