@@ -81,7 +81,7 @@ const templates = [
     id: "T003",
     title: "Our Little Universe",
     category: "Interactive Experience",
-    price: 399,
+    price: 349,
 
     // TEMPLATE WEBSITE URL
     preview: "https://t003-our-little-universe-template.netlify.app/",
@@ -107,7 +107,7 @@ const templates = [
     id: "T004",
     title: "Our Little Garden",
     category: "Interactive Garden Experience",
-    price: 399,
+    price: 349,
     // TEMPLATE WEBSITE URL
     preview: "https://t004-our-little-garden-template.netlify.app/",
     link: "https://t004-our-little-garden-template.netlify.app/",
