@@ -59,6 +59,40 @@ const templates = [
   ],
 },
 
+      {
+    id: "S003",
+    title: "Lucky Date",
+    category: "Interactive Love Experience",
+    price: 299,
+
+    // TEMPLATE WEBSITE URL
+    preview: "https://s003-lucky-date-template.netlify.app/",
+    link: "https://s003-lucky-date-template.netlify.app/",
+
+    description:
+    "A playful lucky-date experience made for two, combining lucky numbers, memories, scratch cards, photos, music, and a heartfelt love letter into one charming romantic website.",
+
+    perfectFor:
+    "Anniversaries, birthdays, Valentine's Day, monthsaries, long-distance couples, lucky-date surprises, and romantic gifts.",
+
+    included: [
+    "Responsive website",
+    "Basic personalization",
+    "Names & text replacement",
+    "Photo replacement",
+    "10 photo memories",
+    "Lucky number experience",
+    "Winning ticket reveal",
+    "Interactive scratch cards",
+    "Love story sections",
+    "Love letter section",
+    "Background music",
+    "Animated elements",
+    "Mobile-friendly layout",
+    ],
+  },
+
+
   {
     id: "B001",
     title: "Museum of Us",
