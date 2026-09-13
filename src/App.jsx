@@ -32,7 +32,7 @@ const templates = [
   id: "S001",
   title: "Bubble World",
   category: "Interactive Love Experience",
-  price: 189,
+  price: 199,
 
   // TEMPLATE WEBSITE URL
   preview: "https://s001-bubble-world-template.netlify.app/",
@@ -63,7 +63,7 @@ const templates = [
     id: "B001",
     title: "Museum of Us",
     category: "Interactive Memory Experience",
-    price: 249,
+    price: 199,
 
     // TEMPLATE WEBSITE URL
     preview: "https://b001-museum-of-us-template.netlify.app/",
@@ -117,7 +117,7 @@ const templates = [
     id: "T002",
     title: "Love Notes",
     category: "Interactive Love Letter",
-    price: 230,
+    price: 199,
 
     // TEMPLATE WEBSITE URL
     preview: "https://t002-love-notes-template.netlify.app/#dear-you",
@@ -142,7 +142,7 @@ const templates = [
     id: "T003",
     title: "Our Little Universe",
     category: "Interactive Experience",
-    price: 309,
+    price: 299,
 
     // TEMPLATE WEBSITE URL
     preview: "https://t003-our-little-universe-template.netlify.app/",
@@ -168,7 +168,7 @@ const templates = [
     id: "T004",
     title: "Our Little Garden",
     category: "Interactive Garden Experience",
-    price: 309,
+    price: 299,
     // TEMPLATE WEBSITE URL
     preview: "https://t004-our-little-garden-template.netlify.app/",
     link: "https://t004-our-little-garden-template.netlify.app/",
