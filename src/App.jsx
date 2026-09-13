@@ -32,7 +32,7 @@ const templates = [
   id: "S001",
   title: "Bubble World",
   category: "Interactive Love Experience",
-  price: 269,
+  price: 189,
 
   // TEMPLATE WEBSITE URL
   preview: "https://s001-bubble-world-template.netlify.app/",
