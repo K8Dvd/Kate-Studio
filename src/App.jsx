@@ -196,7 +196,7 @@ const templates = [
     id: "T006",
     title: "Mini Polaroid",
     category: "Interactive Memory Experience",
-    price: 189,
+    price: 179,
 
     // TEMPLATE WEBSITE URL
     preview: "https://t006-mini-polaroid-template.netlify.app/",
