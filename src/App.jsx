@@ -63,7 +63,7 @@ const templates = [
     id: "B001",
     title: "Museum of Us",
     category: "Interactive Memory Experience",
-    price: 259,
+    price: 249,
 
     // TEMPLATE WEBSITE URL
     preview: "https://b001-museum-of-us-template.netlify.app/",
@@ -92,7 +92,7 @@ const templates = [
     id: "T001",
     title: "Love Story",
     category: "Romantic Website",
-    price: 189,
+    price: 159,
 
     // TEMPLATE WEBSITE URL
     preview: "https://t001-love-story-template.netlify.app/",
@@ -117,7 +117,7 @@ const templates = [
     id: "T002",
     title: "Love Notes",
     category: "Interactive Love Letter",
-    price: 240,
+    price: 230,
 
     // TEMPLATE WEBSITE URL
     preview: "https://t002-love-notes-template.netlify.app/#dear-you",
@@ -142,7 +142,7 @@ const templates = [
     id: "T003",
     title: "Our Little Universe",
     category: "Interactive Experience",
-    price: 349,
+    price: 309,
 
     // TEMPLATE WEBSITE URL
     preview: "https://t003-our-little-universe-template.netlify.app/",
@@ -168,7 +168,7 @@ const templates = [
     id: "T004",
     title: "Our Little Garden",
     category: "Interactive Garden Experience",
-    price: 349,
+    price: 309,
     // TEMPLATE WEBSITE URL
     preview: "https://t004-our-little-garden-template.netlify.app/",
     link: "https://t004-our-little-garden-template.netlify.app/",
@@ -196,7 +196,7 @@ const templates = [
     id: "T006",
     title: "Mini Polaroid",
     category: "Interactive Memory Experience",
-    price: 240,
+    price: 189,
 
     // TEMPLATE WEBSITE URL
     preview: "https://t006-mini-polaroid-template.netlify.app/",
