@@ -63,7 +63,7 @@ const templates = [
   id: "S002",
   title: "Lucky Us",
   category: "Interactive Love Experience",
-  price: 299,
+  price: 249,
 
   // TEMPLATE WEBSITE URL
   preview: "https://s002-lucky-us-template.netlify.app/",
@@ -96,7 +96,7 @@ const templates = [
     id: "S003",
     title: "Lucky Date",
     category: "Interactive Love Experience",
-    price: 299,
+    price: 249,
 
     // TEMPLATE WEBSITE URL
     preview: "https://s003-lucky-date-template.netlify.app/",
@@ -154,6 +154,41 @@ const templates = [
       "Mobile-friendly layout",
     ],
   },
+
+  {
+  id: "B002",
+  title: "Birthday Adventure",
+  category: "Interactive Birthday Experience",
+  price: 249,
+
+  // TEMPLATE WEBSITE URL
+  preview: "https://b002-birthday-template.netlify.app/",
+  link: "https://b002-birthday-template.netlify.app/",
+
+  description:
+    "A playful interactive birthday experience filled with mini games, birthday surprises, memories, music, letters, gifts, and a special celebration made for someone's big day.",
+
+  perfectFor:
+    "Birthdays, surprise gifts, best friends, partners, family members, long-distance loved ones, and personalized digital birthday surprises.",
+
+  included: [
+    "Responsive website",
+    "Basic personalization",
+    "Name & text replacement",
+    "Photo replacement",
+    "6 photo memories",
+    "Interactive balloon game",
+    "Build-your-own birthday cake",
+    "Make-a-wish interaction",
+    "Interactive gift boxes",
+    "Birthday letter collection",
+    "Birthday fortune reveal",
+    "Couple video section",
+    "Background music",
+    "Animated elements",
+    "Mobile-friendly layout",
+  ],
+},
   
   {
     id: "T001",
@@ -209,7 +244,7 @@ const templates = [
     id: "T003",
     title: "Our Little Universe",
     category: "Interactive Experience",
-    price: 299,
+    price: 249,
 
     // TEMPLATE WEBSITE URL
     preview: "https://t003-our-little-universe-template.netlify.app/",
@@ -235,7 +270,7 @@ const templates = [
     id: "T004",
     title: "Our Little Garden",
     category: "Interactive Garden Experience",
-    price: 299,
+    price: 249,
     // TEMPLATE WEBSITE URL
     preview: "https://t004-our-little-garden-template.netlify.app/",
     link: "https://t004-our-little-garden-template.netlify.app/",
