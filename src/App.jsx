@@ -371,7 +371,7 @@ EDIT THESE IF YOUR SOCIAL LINKS CHANGE.
 */
 
 const SOCIALS = {
-  tiktok: "https://www.tiktok.com/@katestudiooo",
+  tiktok: "https://www.tiktok.com/@katestudioweb",
   telegram: "https://t.me/+ReaPEaPaGKs3MmVl",
 };
 
