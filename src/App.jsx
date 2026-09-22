@@ -1,4 +1,5 @@
 import { useMemo, useRef, useState } from "react";
+
 import "./index.css";
 
 /*
@@ -27,104 +28,97 @@ IMPORTANT:
 */
 
 const templates = [
+  {
+    id: "S001",
+    title: "Bubble World",
+    category: "Interactive Love Experience",
+    price: 199,
+
+    preview: "https://s001-bubble-world-template.netlify.app/",
+    link: "https://s001-bubble-world-template.netlify.app/",
+
+    description:
+      "A dreamy little world made for two, where bubbles, memories, music, sweet messages, and interactive surprises come together in one playful romantic experience.",
+
+    perfectFor:
+      "Anniversaries, birthdays, Valentine's Day, monthsaries, long-distance couples, and cute romantic surprises.",
+
+    included: [
+      "Responsive website",
+      "Basic personalization",
+      "Names & text replacement",
+      "Photo replacement",
+      "12 photo memories",
+      "Interactive bubble surprise",
+      "Love story sections",
+      "Love letter section",
+      "Background music",
+      "Animated elements",
+      "Mobile-friendly layout",
+    ],
+  },
 
   {
-  id: "S001",
-  title: "Bubble World",
-  category: "Interactive Love Experience",
-  price: 199,
+    id: "S002",
+    title: "Lucky Us",
+    category: "Interactive Love Experience",
+    price: 269,
 
-  // TEMPLATE WEBSITE URL
-  preview: "https://s001-bubble-world-template.netlify.app/",
-  link: "https://s001-bubble-world-template.netlify.app/",
+    preview: "https://s002-lucky-us-template.netlify.app/",
+    link: "https://s002-lucky-us-template.netlify.app/",
 
-  description:
-    "A dreamy little world made for two, where bubbles, memories, music, sweet messages, and interactive surprises come together in one playful romantic experience.",
+    description:
+      "A playful lucky-love experience made for two, combining lucky numbers, memories, photos, music, a couple video, and a heartfelt love letter into one charming romantic website.",
 
-  perfectFor:
-    "Anniversaries, birthdays, Valentine's Day, monthsaries, long-distance couples, and cute romantic surprises.",
+    perfectFor:
+      "Anniversaries, birthdays, Valentine's Day, monthsaries, long-distance couples, lucky-date surprises, and romantic gifts.",
 
-  included: [
-    "Responsive website",
-    "Basic personalization",
-    "Names & text replacement",
-    "Photo replacement",
-    "12 photo memories",
-    "Interactive bubble surprise",
-    "Love story sections",
-    "Love letter section",
-    "Background music",
-    "Animated elements",
-    "Mobile-friendly layout",
-  ],
-},
+    included: [
+      "Responsive website",
+      "Basic personalization",
+      "Names & text replacement",
+      "Photo replacement",
+      "10 photo memories",
+      "Lucky number experience",
+      "Love letter section",
+      "Background music",
+      "Couple video section",
+      "Animated elements",
+      "Mobile-friendly layout",
+    ],
+  },
 
   {
-  id: "S002",
-  title: "Lucky Us",
-  category: "Interactive Love Experience",
-  price: 249,
-
-  // TEMPLATE WEBSITE URL
-  preview: "https://s002-lucky-us-template.netlify.app/",
-  link: "https://s002-lucky-us-template.netlify.app/",
-
-  description:
-    "A playful lucky-love experience made for two, combining lucky numbers, memories, photos, music, a couple video, and a heartfelt love letter into one charming romantic website.",
-
-  perfectFor:
-    "Anniversaries, birthdays, Valentine's Day, monthsaries, long-distance couples, lucky-date surprises, and romantic gifts.",
-
-  included: [
-    "Responsive website",
-    "Basic personalization",
-    "Names & text replacement",
-    "Photo replacement",
-    "10 photo memories",
-    "Lucky number experience",
-    "Love letter section",
-    "Background music",
-    "Couple video section",
-    "Animated elements",
-    "Mobile-friendly layout",
-  ],
-},
-
-
-
-      {
     id: "S003",
     title: "Lucky Date",
     category: "Interactive Love Experience",
-    price: 249,
+    price: 269,
 
-    // TEMPLATE WEBSITE URL
     preview: "https://s003-lucky-date-template.netlify.app/",
     link: "https://s003-lucky-date-template.netlify.app/",
 
     description:
-    "A playful lucky-date experience made for two, combining lucky numbers, memories, scratch cards, photos, music, and a heartfelt love letter into one charming romantic website.",
+      "A playful lucky-date experience made for two, combining lucky numbers, memories, scratch cards, photos, music, and a heartfelt love letter into one charming romantic website.",
 
     perfectFor:
-    "Anniversaries, birthdays, Valentine's Day, monthsaries, long-distance couples, lucky-date surprises, and romantic gifts.",
+      "Anniversaries, birthdays, Valentine's Day, monthsaries, long-distance couples, lucky-date surprises, and romantic gifts.",
 
     included: [
-    "Responsive website",
-    "Basic personalization",
-    "Names & text replacement",
-    "Photo replacement",
-    "10 photo memories",
-    "Lucky number experience",
-    "Winning ticket reveal",
-    "Interactive scratch cards",
-    "Love story sections",
-    "Love letter section",
-    "Background music",
-    "Animated elements",
-    "Mobile-friendly layout",
+      "Responsive website",
+      "Basic personalization",
+      "Names & text replacement",
+      "Photo replacement",
+      "10 photo memories",
+      "Lucky number experience",
+      "Winning ticket reveal",
+      "Interactive scratch cards",
+      "Love story sections",
+      "Love letter section",
+      "Background music",
+      "Animated elements",
+      "Mobile-friendly layout",
     ],
   },
-
 
   {
     id: "B001",
@@ -132,7 +126,6 @@ const templates = [
     category: "Interactive Memory Experience",
     price: 199,
 
-    // TEMPLATE WEBSITE URL
     preview: "https://b001-museum-of-us-template.netlify.app/",
     link: "https://b001-museum-of-us-template.netlify.app/",
 
@@ -156,47 +149,45 @@ const templates = [
   },
 
   {
-  id: "B002",
-  title: "Birthday Adventure",
-  category: "Interactive Birthday Experience",
-  price: 249,
+    id: "B002",
+    title: "Birthday Adventure",
+    category: "Interactive Birthday Experience",
+    price: 269,
 
-  // TEMPLATE WEBSITE URL
-  preview: "https://b002-birthday-template.netlify.app/",
-  link: "https://b002-birthday-template.netlify.app/",
+    preview: "https://b002-birthday-template.netlify.app/",
+    link: "https://b002-birthday-template.netlify.app/",
 
-  description:
-    "A playful interactive birthday experience filled with mini games, birthday surprises, memories, music, letters, gifts, and a special celebration made for someone's big day.",
+    description:
+      "A playful interactive birthday experience filled with mini games, birthday surprises, memories, music, letters, gifts, and a special celebration made for someone's big day.",
 
-  perfectFor:
-    "Birthdays, surprise gifts, best friends, partners, family members, long-distance loved ones, and personalized digital birthday surprises.",
+    perfectFor:
+      "Birthdays, surprise gifts, best friends, partners, family members, long-distance loved ones, and personalized digital birthday surprises.",
 
-  included: [
-    "Responsive website",
-    "Basic personalization",
-    "Name & text replacement",
-    "Photo replacement",
-    "6 photo memories",
-    "Interactive balloon game",
-    "Build-your-own birthday cake",
-    "Make-a-wish interaction",
-    "Interactive gift boxes",
-    "Birthday letter collection",
-    "Birthday fortune reveal",
-    "Couple video section",
-    "Background music",
-    "Animated elements",
-    "Mobile-friendly layout",
-  ],
-},
-  
+    included: [
+      "Responsive website",
+      "Basic personalization",
+      "Name & text replacement",
+      "Photo replacement",
+      "6 photo memories",
+      "Interactive balloon game",
+      "Build-your-own birthday cake",
+      "Make-a-wish interaction",
+      "Interactive gift boxes",
+      "Birthday letter collection",
+      "Birthday fortune reveal",
+      "Couple video section",
+      "Background music",
+      "Animated elements",
+      "Mobile-friendly layout",
+    ],
+  },
+
   {
     id: "T001",
     title: "Love Story",
     category: "Romantic Website",
     price: 159,
 
-    // TEMPLATE WEBSITE URL
     preview: "https://t001-love-story-template.netlify.app/",
     link: "https://t001-love-story-template.netlify.app/",
 
@@ -221,7 +212,6 @@ const templates = [
     category: "Interactive Love Letter",
     price: 199,
 
-    // TEMPLATE WEBSITE URL
     preview: "https://t002-love-notes-template.netlify.app/#dear-you",
     link: "https://t002-love-notes-template.netlify.app/#dear-you",
 
@@ -244,9 +234,8 @@ const templates = [
     id: "T003",
     title: "Our Little Universe",
     category: "Interactive Experience",
-    price: 249,
+    price: 269,
 
-    // TEMPLATE WEBSITE URL
     preview: "https://t003-our-little-universe-template.netlify.app/",
     link: "https://t003-our-little-universe-template.netlify.app/",
 
@@ -266,18 +255,21 @@ const templates = [
     ],
   },
 
-    {
+  {
     id: "T004",
     title: "Our Little Garden",
     category: "Interactive Garden Experience",
-    price: 249,
-    // TEMPLATE WEBSITE URL
+    price: 269,
+
     preview: "https://t004-our-little-garden-template.netlify.app/",
     link: "https://t004-our-little-garden-template.netlify.app/",
+
     description:
       "A dreamy little garden where your love story blooms through flowers, memories, promises, music, and a bouquet made just for you.",
+
     perfectFor:
       "Anniversaries, birthdays, Valentine's Day, monthsaries, proposals, and romantic surprises for someone special.",
+
     included: [
       "Responsive website",
       "Basic personalization",
@@ -292,15 +284,12 @@ const templates = [
     ],
   },
 
-  
-
   {
     id: "T006",
     title: "Mini Polaroid",
     category: "Interactive Memory Experience",
     price: 179,
 
-    // TEMPLATE WEBSITE URL
     preview: "https://t006-mini-polaroid-template.netlify.app/",
     link: "https://t006-mini-polaroid-template.netlify.app/",
 
@@ -322,10 +311,6 @@ const templates = [
       "Mobile-friendly layout",
     ],
   },
-
-  
-
-
 
   /*
   ============================================================
@@ -372,6 +357,7 @@ EDIT THESE IF YOUR SOCIAL LINKS CHANGE.
 
 const SOCIALS = {
   tiktok: "https://www.tiktok.com/@katestudioweb",
+  instagram: "https://www.instagram.com/katestudioweb/",
   telegram: "https://t.me/+ReaPEaPaGKs3MmVl",
 };
 
@@ -469,7 +455,6 @@ MAIN APP
 
 export default function App() {
   const carouselRef = useRef(null);
-
   const [mobileMenu, setMobileMenu] = useState(false);
   const [agreed, setAgreed] = useState(false);
 
@@ -539,7 +524,6 @@ export default function App() {
 
   return (
     <div className="site-shell">
-
       {/* ======================================================
           TOP RIBBON
           ====================================================== */}
@@ -556,7 +540,6 @@ export default function App() {
 
       <header className="navbar">
         <div className="nav-inner">
-
           <button
             className="brand"
             onClick={() => scrollToSection("home")}
@@ -604,9 +587,7 @@ export default function App() {
           ====================================================== */}
 
       <main>
-
         <section className="hero" id="home">
-
           <div className="hero-decoration bow bow-one">
             ୨୧
           </div>
@@ -624,7 +605,6 @@ export default function App() {
           </div>
 
           <div className="hero-content">
-
             <div className="eyebrow">
               <HeartIcon />
               DIGITAL WEBSITES FOR YOUR FAVORITE PERSON
@@ -643,7 +623,6 @@ export default function App() {
             </p>
 
             <div className="hero-actions">
-
               <button
                 className="primary-button"
                 onClick={() => scrollToSection("templates")}
@@ -659,13 +638,11 @@ export default function App() {
                 Read before ordering
                 <span>→</span>
               </button>
-
             </div>
 
             <p className="hero-note">
               STARTING AT ₱159 · MADE WITH CODE + CARE
             </p>
-
           </div>
         </section>
 
@@ -674,9 +651,7 @@ export default function App() {
             ==================================================== */}
 
         <section className="intro-section" id="templates">
-
           <div className="section-heading centered">
-
             <span className="mini-label">
               THE COLLECTION
             </span>
@@ -690,7 +665,6 @@ export default function App() {
               coded and prepared individually, so your final version
               feels personal instead of looking like a generic copy-paste page.
             </p>
-
           </div>
         </section>
 
@@ -699,9 +673,7 @@ export default function App() {
             ==================================================== */}
 
         <section className="designs-section">
-
           <div className="carousel-heading">
-
             <div>
               <span className="mini-label">
                 LIVE PREVIEWS
@@ -713,7 +685,6 @@ export default function App() {
             </div>
 
             <div className="carousel-controls">
-
               <button
                 type="button"
                 onClick={() => scrollCarousel(-1)}
@@ -729,9 +700,7 @@ export default function App() {
               >
                 <ArrowRight />
               </button>
-
             </div>
-
           </div>
 
           <div
@@ -739,9 +708,7 @@ export default function App() {
             ref={carouselRef}
             aria-label="Template carousel"
           >
-
             {templates.map((template, index) => (
-
               <article
                 className="template-card"
                 key={template.id}
@@ -749,11 +716,9 @@ export default function App() {
                   "--card-index": index,
                 }}
               >
-
                 {/* LIVE WEBSITE PREVIEW */}
 
                 <div className="template-preview">
-
                   <iframe
                     src={template.preview}
                     title={`${template.title} live preview`}
@@ -763,7 +728,6 @@ export default function App() {
                   />
 
                   <div className="preview-overlay">
-
                     <span className="preview-label">
                       LIVE PREVIEW · {template.id}
                     </span>
@@ -776,17 +740,13 @@ export default function App() {
                     >
                       Open full site ↗
                     </a>
-
                   </div>
-
                 </div>
 
                 {/* TEMPLATE INFORMATION */}
 
                 <div className="template-info">
-
                   <div className="template-topline">
-
                     <span className="template-code">
                       {template.id}
                     </span>
@@ -794,7 +754,6 @@ export default function App() {
                     <span className="template-category">
                       {template.category}
                     </span>
-
                   </div>
 
                   <h3>
@@ -806,7 +765,6 @@ export default function App() {
                   </p>
 
                   <div className="perfect-for">
-
                     <span>
                       PERFECT FOR
                     </span>
@@ -814,28 +772,21 @@ export default function App() {
                     <p>
                       {template.perfectFor}
                     </p>
-
                   </div>
 
                   <div className="included-mini">
-
                     {template.included
                       .slice(0, 4)
                       .map((item) => (
-
                         <span key={item}>
                           <CheckIcon />
                           {item}
                         </span>
-
                       ))}
-
                   </div>
 
                   <div className="price-row">
-
                     <div>
-
                       <span className="price-label">
                         STARTING PRICE
                       </span>
@@ -843,7 +794,6 @@ export default function App() {
                       <strong>
                         ₱{template.price}
                       </strong>
-
                     </div>
 
                     <a
@@ -855,25 +805,21 @@ export default function App() {
                       View Template
                       <ArrowRight />
                     </a>
-
                   </div>
-
                 </div>
-
               </article>
-
             ))}
-
           </div>
 
           <div className="carousel-hint">
             <ArrowLeft />
+
             <span>
               Swipe or use the arrows to explore
             </span>
+
             <ArrowRight />
           </div>
-
         </section>
 
         {/* ====================================================
@@ -881,11 +827,8 @@ export default function App() {
             ==================================================== */}
 
         <section className="why-section">
-
           <div className="why-inner">
-
             <div className="why-copy">
-
               <span className="mini-label">
                 WHY KATE STUDIO
               </span>
@@ -908,11 +851,9 @@ export default function App() {
                 thoughtful details, and experiences that work beautifully
                 on both phones and desktops.
               </p>
-
             </div>
 
             <div className="promise-card">
-
               <div className="promise-icon">
                 ♡
               </div>
@@ -935,11 +876,8 @@ export default function App() {
                 <span>MOBILE FRIENDLY</span>
                 <span>HAND CODED</span>
               </div>
-
             </div>
-
           </div>
-
         </section>
 
         {/* ====================================================
@@ -947,9 +885,7 @@ export default function App() {
             ==================================================== */}
 
         <section className="process-section" id="included">
-
           <div className="section-heading centered">
-
             <span className="mini-label">
               WHAT YOU GET
             </span>
@@ -963,11 +899,9 @@ export default function App() {
               You only pay more when you request something
               outside the standard personalization.
             </p>
-
           </div>
 
           <div className="process-grid">
-
             <div className="process-card">
               <span>01</span>
               <div className="process-icon">♡</div>
@@ -1028,9 +962,7 @@ export default function App() {
                 of schedule.
               </p>
             </div>
-
           </div>
-
         </section>
 
         {/* ====================================================
@@ -1038,9 +970,7 @@ export default function App() {
             ==================================================== */}
 
         <section className="addons-section" id="addons">
-
           <div className="section-heading centered">
-
             <span className="mini-label">
               OPTIONAL ADD-ONS
             </span>
@@ -1054,13 +984,10 @@ export default function App() {
               Add-ons are only charged when they require additional
               design, coding, editing, or preparation.
             </p>
-
           </div>
 
           <div className="addon-grid">
-
             <div className="addon-card">
-
               <span className="addon-number">
                 ADD-ON 01
               </span>
@@ -1076,13 +1003,11 @@ export default function App() {
               </p>
 
               <strong>
-                STARTS AT ₱60
+                QUOTED DEPENDING ON WORK
               </strong>
-
             </div>
 
             <div className="addon-card">
-
               <span className="addon-number">
                 ADD-ON 02
               </span>
@@ -1100,11 +1025,9 @@ export default function App() {
               <strong>
                 QUOTED DEPENDING ON WORK
               </strong>
-
             </div>
 
             <div className="addon-card">
-
               <span className="addon-number">
                 ADD-ON 03
               </span>
@@ -1122,11 +1045,9 @@ export default function App() {
               <strong>
                 QUOTED FIRST
               </strong>
-
             </div>
 
             <div className="addon-card">
-
               <span className="addon-number">
                 ADD-ON 04
               </span>
@@ -1144,22 +1065,17 @@ export default function App() {
               <strong>
                 QUOTED DEPENDING ON WORK
               </strong>
-
             </div>
-
           </div>
 
           <div className="color-note">
-
             <span>
               TIP
             </span>
 
             For custom colors, send the HEX codes you want.
             You can find palette inspiration from Color Hunt.
-
           </div>
-
         </section>
 
         {/* ====================================================
@@ -1167,11 +1083,8 @@ export default function App() {
             ==================================================== */}
 
         <section className="info-banner">
-
           <div className="info-banner-inner">
-
             <div>
-
               <span className="mini-label">
                 BASIC PERSONALIZATION
               </span>
@@ -1185,7 +1098,6 @@ export default function App() {
                 messages, dates, photos, and other editable content
                 already designed into the chosen template.
               </p>
-
             </div>
 
             <div className="file-badges">
@@ -1194,9 +1106,7 @@ export default function App() {
               <span>NAMES</span>
               <span>DATES</span>
             </div>
-
           </div>
-
         </section>
 
         {/* ====================================================
@@ -1204,11 +1114,8 @@ export default function App() {
             ==================================================== */}
 
         <section className="terms-section" id="conditions">
-
           <div className="terms-card">
-
             <div className="section-heading">
-
               <span className="mini-label">
                 PLEASE READ BEFORE ORDERING
               </span>
@@ -1221,11 +1128,9 @@ export default function App() {
                 Please review these conditions before sending
                 your order so both sides know what is included.
               </p>
-
             </div>
 
             <div className="terms-grid">
-
               <div>
                 <h3>01 · PAYMENT</h3>
 
@@ -1287,7 +1192,7 @@ export default function App() {
                 <p>
                   The original template palette is included.
                   A fully custom color palette is an optional
-                  add-on starting at ₱60 because colors may need
+                  add-on because colors may need
                   to be adjusted across multiple design elements.
                 </p>
               </div>
@@ -1356,7 +1261,6 @@ export default function App() {
                   instructions remain clear and can be properly followed.
                 </p>
               </div>
-
             </div>
 
             {/* ==================================================
@@ -1364,9 +1268,7 @@ export default function App() {
                 ================================================== */}
 
             <div className="agreement-box">
-
               <label className="agreement-label">
-
                 <input
                   type="checkbox"
                   checked={agreed}
@@ -1385,13 +1287,11 @@ export default function App() {
                   personalization scope, revision policy,
                   add-ons, and ordering conditions.
                 </span>
-
               </label>
 
               {/* CONTACT BUTTONS ONLY APPEAR ENABLED AFTER CHECKING */}
 
               <div className="locked-buttons">
-
                 <a
                   className={`locked-contact telegram ${
                     agreed ? "enabled" : ""
@@ -1426,20 +1326,31 @@ export default function App() {
                   Visit TikTok ↗
                 </a>
 
+                <a
+                  className={`locked-contact instagram ${
+                    agreed ? "enabled" : ""
+                  }`}
+                  href={agreed ? SOCIALS.instagram : undefined}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-disabled={!agreed}
+                  onClick={(event) => {
+                    if (!agreed) {
+                      event.preventDefault();
+                    }
+                  }}
+                >
+                  Visit Instagram ↗
+                </a>
               </div>
 
               <p className="agreement-note">
-
                 {agreed
                   ? "You're all set — you can now contact Kate Studio."
                   : "Please check the box above to enable the contact buttons."}
-
               </p>
-
             </div>
-
           </div>
-
         </section>
 
         {/* ====================================================
@@ -1450,7 +1361,6 @@ export default function App() {
 
         {/* ====================================================
             CONTACT
-            ====================================================
 
             No duplicate direct-contact buttons here.
             The actual contact buttons are in Conditions,
@@ -1458,9 +1368,7 @@ export default function App() {
             ==================================================== */}
 
         <section className="contact-section" id="contact">
-
           <div className="contact-content">
-
             <div className="contact-decoration">
               ୨୧
             </div>
@@ -1486,11 +1394,8 @@ export default function App() {
               Review Conditions & Contact
               <ArrowRight />
             </button>
-
           </div>
-
         </section>
-
       </main>
 
       {/* ======================================================
@@ -1498,11 +1403,8 @@ export default function App() {
           ====================================================== */}
 
       <footer className="footer">
-
         <div className="footer-inner">
-
           <div className="footer-brand">
-
             <span className="brand-main">
               KATE STUDIO
             </span>
@@ -1510,7 +1412,6 @@ export default function App() {
             <span className="brand-sub">
               DIGITAL LOVE STORIES
             </span>
-
           </div>
 
           <p>
@@ -1518,7 +1419,6 @@ export default function App() {
           </p>
 
           <div className="footer-links">
-
             <button onClick={() => scrollToSection("templates")}>
               Templates
             </button>
@@ -1526,6 +1426,14 @@ export default function App() {
             <button onClick={() => scrollToSection("conditions")}>
               Conditions
             </button>
+
+            <a
+              href={SOCIALS.instagram}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Instagram
+            </a>
 
             <a
               href={SOCIALS.tiktok}
@@ -1542,17 +1450,13 @@ export default function App() {
             >
               Telegram
             </a>
-
           </div>
-
         </div>
 
         <div className="copyright">
           © {new Date().getFullYear()} Kate Studio. All rights reserved.
         </div>
-
       </footer>
-
     </div>
   );
 }
@@ -1576,7 +1480,7 @@ function FAQ() {
     {
       question: "Can I request a different color?",
       answer:
-        "Yes. The original template color palette is included. A custom color palette is an optional add-on starting at ₱60 because changing colors throughout a design can require additional editing.",
+        "Yes. The original template color palette is included. A custom color palette is an optional add-on because changing colors throughout a design can require additional editing.",
     },
 
     {
@@ -1606,9 +1510,7 @@ function FAQ() {
 
   return (
     <section className="faq-section">
-
       <div className="section-heading centered">
-
         <span className="mini-label">
           FAQ
         </span>
@@ -1616,13 +1518,10 @@ function FAQ() {
         <h2>
           A few things you might be wondering.
         </h2>
-
       </div>
 
       <div className="faq-list">
-
         {questions.map((item, index) => {
-
           const isOpen = openIndex === index;
 
           return (
@@ -1632,7 +1531,6 @@ function FAQ() {
               }`}
               key={item.question}
             >
-
               <button
                 className="faq-question"
                 onClick={() =>
@@ -1642,7 +1540,6 @@ function FAQ() {
                 }
                 aria-expanded={isOpen}
               >
-
                 <span>
                   {item.question}
                 </span>
@@ -1650,7 +1547,6 @@ function FAQ() {
                 <span className="faq-plus">
                   {isOpen ? "−" : "+"}
                 </span>
-
               </button>
 
               <div className="faq-answer">
@@ -1658,13 +1554,10 @@ function FAQ() {
                   {item.answer}
                 </p>
               </div>
-
             </div>
           );
         })}
-
       </div>
-
     </section>
   );
 }
