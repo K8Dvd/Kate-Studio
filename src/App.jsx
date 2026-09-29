@@ -183,6 +183,70 @@ const templates = [
   },
 
   {
+  id: "B003",
+  title: "Birthday Cam",
+  category: "Interactive Birthday Experience",
+  price: 139,
+
+  preview: "https://b003-birthday-cam-template.netlify.app/",
+  link: "https://b003-birthday-cam-template.netlify.app/",
+
+  description:
+    "A fun Y2K-inspired birthday camera experience that turns someone's special day into a digital memory file, complete with photos, video, music, a heartfelt letter, a surprise gift, and a birthday wish interaction.",
+
+  perfectFor:
+    "Birthdays, best friends, partners, siblings, family members, long-distance loved ones, and fun personalized digital birthday surprises.",
+
+  included: [
+    "Responsive website",
+    "Basic personalization",
+    "Name & text replacement",
+    "Photo replacement",
+    "6 photo memories",
+    "Y2K birthday camera theme",
+    "Birthday video section",
+    "Long birthday letter",
+    "Interactive gift reveal",
+    "Make-a-wish interaction",
+    "Birthday cake interaction",
+    "Background music",
+    "Animated elements",
+    "Mobile-friendly layout",
+  ],
+},
+
+{
+  id: "B004",
+  title: "Birthday Scrapbook",
+  category: "Interactive Birthday Experience",
+  price: 139,
+
+  preview: "https://b004-birthday-scrapbook-template.netlify.app/",
+  link: "https://b004-birthday-scrapbook-template.netlify.app/",
+
+  description:
+    "A colorful digital birthday scrapbook that brings together favorite photos, memories, messages, and birthday surprises into one playful interactive experience.",
+
+  perfectFor:
+    "Birthdays, best friends, partners, siblings, family members, long-distance loved ones, and personalized digital birthday surprises.",
+
+  included: [
+    "Responsive website",
+    "Basic personalization",
+    "Name & text replacement",
+    "Photo replacement",
+    "Digital scrapbook experience",
+    "Birthday memory sections",
+    "Interactive elements",
+    "Birthday messages",
+    "Background music",
+    "Animated elements",
+    "Mobile-friendly layout",
+  ],
+},
+
+
+  {
     id: "T001",
     title: "Love Story",
     category: "Romantic Website",
