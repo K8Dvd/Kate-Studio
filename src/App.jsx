@@ -219,7 +219,7 @@ const templates = [
   id: "B004",
   title: "Birthday Scrapbook",
   category: "Interactive Birthday Experience",
-  price: 139,
+  price: 149,
 
   preview: "https://b004-birthday-scrapbook-template.netlify.app/",
   link: "https://b004-birthday-scrapbook-template.netlify.app/",
