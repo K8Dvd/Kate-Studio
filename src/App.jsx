@@ -186,7 +186,7 @@ const templates = [
   id: "B003",
   title: "Birthday Cam",
   category: "Interactive Birthday Experience",
-  price: 139,
+  price: 159,
 
   preview: "https://b003-birthday-cam-template.netlify.app/",
   link: "https://b003-birthday-cam-template.netlify.app/",
@@ -219,7 +219,7 @@ const templates = [
   id: "B004",
   title: "Birthday Scrapbook",
   category: "Interactive Birthday Experience",
-  price: 149,
+  price: 179,
 
   preview: "https://b004-birthday-scrapbook-template.netlify.app/",
   link: "https://b004-birthday-scrapbook-template.netlify.app/",
@@ -244,6 +244,68 @@ const templates = [
     "Mobile-friendly layout",
   ],
 },
+
+
+{
+  id: "B005",
+  title: "Birthday Mail",
+  category: "Interactive Birthday Experience",
+  price: 179,
+
+  preview: "https://b005-birthday-mail.netlify.app/",
+  link: "https://b005-birthday-mail.netlify.app/",
+
+  description:
+    "A sweet digital birthday mail experience designed like a special message delivered just for them, filled with photos, birthday notes, surprises, and interactive moments.",
+
+  perfectFor:
+    "Birthdays, best friends, partners, siblings, family members, long-distance loved ones, and personalized digital birthday surprises.",
+
+  included: [
+    "Responsive website",
+    "Basic personalization",
+    "Name & text replacement",
+    "Photo replacement",
+    "Digital birthday mail experience",
+    "Birthday message sections",
+    "Interactive elements",
+    "Birthday surprises",
+    "Background music",
+    "Animated elements",
+    "Mobile-friendly layout",
+  ],
+},
+
+{
+  id: "B006",
+  title: "Birthday Tangled",
+  category: "Interactive Birthday Experience",
+  price: 269,
+
+  preview: "https://b005-birthday-tangled.netlify.app/",
+  link: "https://b005-birthday-tangled.netlify.app/",
+
+  description:
+    "A whimsical interactive birthday experience inspired by tangled letters and little surprises, bringing together photos, messages, memories, music, and playful animations in one colorful digital gift.",
+
+  perfectFor:
+    "Birthdays, best friends, partners, siblings, family members, long-distance loved ones, and personalized digital birthday surprises.",
+
+  included: [
+    "Responsive website",
+    "Basic personalization",
+    "Name & text replacement",
+    "Photo replacement",
+    "Interactive birthday experience",
+    "Birthday message sections",
+    "Interactive elements",
+    "Birthday surprises",
+    "Background music",
+    "Animated elements",
+    "Mobile-friendly layout",
+  ],
+},
+
 
 
   {
