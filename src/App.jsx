@@ -186,7 +186,7 @@ const templates = [
   id: "B003",
   title: "Birthday Cam",
   category: "Interactive Birthday Experience",
-  price: 159,
+  price: 179,
 
   preview: "https://b003-birthday-cam-template.netlify.app/",
   link: "https://b003-birthday-cam-template.netlify.app/",
@@ -414,7 +414,7 @@ const templates = [
     id: "T006",
     title: "Mini Polaroid",
     category: "Interactive Memory Experience",
-    price: 179,
+    price: 159,
 
     preview: "https://t006-mini-polaroid-template.netlify.app/",
     link: "https://t006-mini-polaroid-template.netlify.app/",
