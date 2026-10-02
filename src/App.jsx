@@ -336,7 +336,7 @@ const templates = [
     id: "T002",
     title: "Love Notes",
     category: "Interactive Love Letter",
-    price: 199,
+    price: 159,
 
     preview: "https://t002-love-notes-template.netlify.app/#dear-you",
     link: "https://t002-love-notes-template.netlify.app/#dear-you",
