@@ -1,31 +1,8 @@
-import { useMemo, useRef, useState } from "react";
+import { useState, useEffect } from "react";
 
 import "./index.css";
 
-/*
-============================================================
-KATE STUDIO — MAIN CONFIG
-============================================================
-
-THIS IS THE MAIN PLACE YOU EDIT.
-
-TO ADD A NEW TEMPLATE:
-
-1. Copy one complete template object.
-2. Paste it before the closing ];
-3. Change the information.
-4. Save the file.
-
-The carousel automatically detects new templates.
-
-IMPORTANT:
-- preview = URL shown inside the live preview
-- link = URL opened when "View Template" is clicked
-- price = displayed price
-- description = short description
-- perfectFor = who the template is good for
-- included = things included in the base price
-*/
+/* KATE STUDIO. Templates live in the list below; how-to is under it. */
 
 const templates = [
   {
@@ -33,6 +10,7 @@ const templates = [
     title: "Bubble World",
     category: "Interactive Love Experience",
     price: 199,
+    original: 249, // regular price (edit me)
 
     preview: "https://s001-bubble-world-template.netlify.app/",
     link: "https://s001-bubble-world-template.netlify.app/",
@@ -63,6 +41,7 @@ const templates = [
     title: "Lucky Us",
     category: "Interactive Love Experience",
     price: 269,
+    original: 339, // regular price (edit me)
 
     preview: "https://s002-lucky-us-template.netlify.app/",
     link: "https://s002-lucky-us-template.netlify.app/",
@@ -93,6 +72,7 @@ const templates = [
     title: "Lucky Date",
     category: "Interactive Love Experience",
     price: 269,
+    original: 339, // regular price (edit me)
 
     preview: "https://s003-lucky-date-template.netlify.app/",
     link: "https://s003-lucky-date-template.netlify.app/",
@@ -125,6 +105,7 @@ const templates = [
     title: "Museum of Us",
     category: "Interactive Memory Experience",
     price: 199,
+    original: 249, // regular price (edit me)
 
     preview: "https://b001-museum-of-us-template.netlify.app/",
     link: "https://b001-museum-of-us-template.netlify.app/",
@@ -153,6 +134,7 @@ const templates = [
     title: "Birthday Adventure",
     category: "Interactive Birthday Experience",
     price: 269,
+    original: 339, // regular price (edit me)
 
     preview: "https://b002-birthday-template.netlify.app/",
     link: "https://b002-birthday-template.netlify.app/",
@@ -187,6 +169,7 @@ const templates = [
   title: "Birthday Cam",
   category: "Interactive Birthday Experience",
   price: 179,
+    original: 229, // regular price (edit me)
 
   preview: "https://b003-birthday-cam-template.netlify.app/",
   link: "https://b003-birthday-cam-template.netlify.app/",
@@ -220,6 +203,7 @@ const templates = [
   title: "Birthday Scrapbook",
   category: "Interactive Birthday Experience",
   price: 179,
+    original: 229, // regular price (edit me)
 
   preview: "https://b004-birthday-scrapbook-template.netlify.app/",
   link: "https://b004-birthday-scrapbook-template.netlify.app/",
@@ -251,6 +235,7 @@ const templates = [
   title: "Birthday Mail",
   category: "Interactive Birthday Experience",
   price: 179,
+    original: 229, // regular price (edit me)
 
   preview: "https://b005-birthday-mail.netlify.app/",
   link: "https://b005-birthday-mail.netlify.app/",
@@ -281,6 +266,7 @@ const templates = [
   title: "Birthday Tangled",
   category: "Interactive Birthday Experience",
   price: 269,
+    original: 339, // regular price (edit me)
 
   preview: "https://b005-birthday-tangled.netlify.app/",
   link: "https://b005-birthday-tangled.netlify.app/",
@@ -313,6 +299,7 @@ const templates = [
     title: "Love Story",
     category: "Romantic Website",
     price: 159,
+    original: 199, // regular price (edit me)
 
     preview: "https://t001-love-story-template.netlify.app/",
     link: "https://t001-love-story-template.netlify.app/",
@@ -337,6 +324,7 @@ const templates = [
     title: "Love Notes",
     category: "Interactive Love Letter",
     price: 159,
+    original: 199, // regular price (edit me)
 
     preview: "https://t002-love-notes-template.netlify.app/#dear-you",
     link: "https://t002-love-notes-template.netlify.app/#dear-you",
@@ -361,6 +349,7 @@ const templates = [
     title: "Our Little Universe",
     category: "Interactive Experience",
     price: 269,
+    original: 339, // regular price (edit me)
 
     preview: "https://t003-our-little-universe-template.netlify.app/",
     link: "https://t003-our-little-universe-template.netlify.app/",
@@ -386,6 +375,7 @@ const templates = [
     title: "Our Little Garden",
     category: "Interactive Garden Experience",
     price: 269,
+    original: 339, // regular price (edit me)
 
     preview: "https://t004-our-little-garden-template.netlify.app/",
     link: "https://t004-our-little-garden-template.netlify.app/",
@@ -415,6 +405,7 @@ const templates = [
     title: "Mini Polaroid",
     category: "Interactive Memory Experience",
     price: 159,
+    original: 199, // regular price (edit me)
 
     preview: "https://t006-mini-polaroid-template.netlify.app/",
     link: "https://t006-mini-polaroid-template.netlify.app/",
@@ -438,48 +429,84 @@ const templates = [
     ],
   },
 
-  /*
-  ============================================================
-  ADD NEW TEMPLATES HERE
-  ============================================================
-
-  COPY THIS:
-
   {
-    id: "T004",
-    title: "Your Template Name",
-    category: "Template Category",
-    price: 299,
-
-    preview: "https://your-template.netlify.app/",
-    link: "https://your-template.netlify.app/",
-
-    description:
-      "Short description of your template.",
-
-    perfectFor:
-      "Tell buyers what this template is perfect for.",
-
-    included: [
-      "Responsive website",
-      "Basic personalization",
-      "Names & text replacement",
-      "Photo replacement",
-      "Mobile-friendly layout",
-    ],
+    id: "W001", title: "Alex & Kate Wedding", category: "Wedding Invitation",
+    type: "invitation", occasion: "wedding", rsvp: "premium",
+    price: 999, original: 2499, // % off is computed automatically
+    preview: "https://w001-wedding-invitation.netlify.app/",
+    link: "https://w001-wedding-invitation.netlify.app/",
+    description: "A rich, romantic wedding site with Smart RSVP: guests confirm on a themed page, and answers land in a Google Sheet.",
+    perfectFor: "Weddings that want a custom look plus easy guest tracking.",
+    included: ["Custom themed design", "Smart RSVP page", "Editable guest list", "Guest limit per invite"],
+  },
+  {
+    id: "W002", title: "Wedding Invite (Standard)", category: "Wedding Invitation",
+    type: "invitation", occasion: "wedding", rsvp: "standard",
+    price: null, original: null,
+    preview: "", link: "", // paste the link once it's live
+    description: "A polished wedding invitation with your story, schedule, entourage, and venue details. Guests reply through a Google Form.",
+    perfectFor: "Couples who want a simple, beautiful invite with RSVP.",
+    included: ["Responsive website", "RSVP via Google Forms", "Replies in Google Sheets", "Schedule & venue links"],
   },
 
-  ============================================================
-  */
+/* ============================================================
+  ADD NEW TEMPLATES BELOW (copy, paste, edit):
+
+  {
+    id: "D001",
+    title: "Debut Night",
+    category: "Debut Invitation",
+    type: "invitation",      // "website" (stories, games) or "invitation" (events with RSVP)
+    occasion: "debut",       // see OCCASIONS below for all keys
+    rsvp: "standard",        // OPTIONAL: "standard" or "premium". Delete the line if no RSVP.
+    price: 299,              // price customers pay now
+    original: 399,           // regular price. The % off is computed for you.
+    preview: "https://your-site.netlify.app/",
+    link: "https://your-site.netlify.app/",
+    description: "One or two short sentences.",
+    included: ["Responsive website", "RSVP via Google Forms"],
+  },
+
+  Websites need no "type" line (they default to "website").
+  No link yet? Use preview: "" and link: "" and it shows "Coming soon".
+  No price yet? Use price: null and it shows "Message for rate".
+  ============================================================ */
 ];
 
-/*
-============================================================
-SOCIAL LINKS
-============================================================
 
-EDIT THESE IF YOUR SOCIAL LINKS CHANGE.
-*/
+const TYPES = [
+  { key: "website", label: "Interactive Websites", blurb: "Stories and surprises your person can explore." },
+  { key: "invitation", label: "Invitations", blurb: "Digital invites with RSVP for any event." },
+];
+
+/* One line per occasion. Pick its type, and copy a line to add another.
+   Tabs only appear on the Templates page once a template uses that occasion. */
+const OCCASIONS = [
+  { type: "website", key: "love", label: "Love & Anniversary", icon: "💞", blurb: "Love stories, letters, and surprises." },
+  { type: "website", key: "birthday", label: "Birthday", icon: "🎂", blurb: "Games, photos, and messages." },
+  { type: "invitation", key: "wedding", label: "Wedding", icon: "💍", blurb: "Elegant invites with RSVP." },
+  { type: "invitation", key: "birthday", label: "Birthday", icon: "🎈", blurb: "Fun invites for any age." },
+  { type: "invitation", key: "debut", label: "Debut", icon: "👑", blurb: "Glam invites for the big 18." },
+  { type: "invitation", key: "christening", label: "Christening & Baptism", icon: "🕊️", blurb: "Gentle invites for a little one." },
+  { type: "invitation", key: "babyshower", label: "Baby Shower", icon: "🍼", blurb: "Sweet invites for the newest member." },
+  { type: "invitation", key: "bridal", label: "Bridal Shower", icon: "👰", blurb: "Pretty invites for the bride-to-be." },
+  { type: "invitation", key: "anniversary", label: "Anniversary", icon: "🥂", blurb: "Celebrate years together." },
+  { type: "invitation", key: "reunion", label: "Reunion", icon: "🎉", blurb: "Gather everyone with one link." },
+];
+
+const RSVP_TYPES = [
+  { key: "standard", label: "Standard RSVP" },
+  { key: "premium", label: "Premium RSVP" },
+];
+
+const BIRTHDAY_IDS = ["B002", "B003", "B004", "B005", "B006"];
+const occasionOf = (id) => (BIRTHDAY_IDS.includes(id) ? "birthday" : "love");
+
+const pct = (t) => (t.original && t.price && t.original > t.price ? Math.round((1 - t.price / t.original) * 100) : 0);
+
+const allTemplates = [...templates].map((t) => ({ ...t, type: t.type || "website", occasion: t.occasion || occasionOf(t.id) }));
+const priced = allTemplates.filter((t) => t.price);
+const startingAt = priced.length ? Math.min(...priced.map((t) => t.price)) : 0;
 
 const SOCIALS = {
   tiktok: "https://www.tiktok.com/@katestudioweb",
@@ -487,1203 +514,355 @@ const SOCIALS = {
   telegram: "https://t.me/+ReaPEaPaGKs3MmVl",
 };
 
-/*
-============================================================
-ICONS
-============================================================
-*/
+/* Delivery times live here once, so Policies and FAQ always match. */
+const TIMES = {
+  draft: "Within 4 business days after your downpayment. We send it as soon as it's ready.",
+  standard: "1 to 2 weeks.",
+  complex: "Up to 3 weeks for bigger or more complex sites, such as those with RSVP.",
+  rush: "Need it in 1–2 days? A rush costs half the price of your website, subject to slot availability.",
+};
 
-function ArrowLeft() {
+/* Add-ons: [name, description, price]. Copy a line to add one. */
+const ADDONS = [
+  ["Rush delivery", "Get your site in 1–2 days, subject to slot availability.", "Half the website price"],
+  ["Link lock", "Add a password so only your guests can open your site.", "₱79"],
+  ["Extra content", "Additional pages or large amounts of media.", "Quoted based on what you need"],
+];
+
+const STEPS = [
+  ["Pick a design", "Choose your template, then message us."],
+  ["Send your details", "Photos, wording, schedule, and venue links. A shared Google Drive folder works best."],
+  ["Get your draft", "Your first draft arrives within 4 business days after the downpayment, sooner if it's done early."],
+  ["Go live", "Pay the balance and we'll hand over your final link."],
+];
+
+const POLICIES = [
+  ["Payment & Booking", [
+    ["50% to start", "Pay half upfront to reserve your slot and begin designing. This amount can't be refunded."],
+    ["Balance", "The other half is due before we publish and hand over your finished link."],
+    ["Refunds", "Once design or drafting has begun, payments are no longer refundable."],
+  ]],
+  ["What We Need From You", [
+    ["Everything first", "We begin once we have it all: photos, final wording, entourage, schedule, and venue links."],
+    ["Late details", "If anything else comes up, send it quickly so your timeline isn't pushed back."],
+    ["Photos", "Use high-resolution images and share them in a Google Drive folder."],
+  ]],
+  ["Delivery Time", [
+    ["First draft", TIMES.draft],
+    ["Websites", TIMES.standard],
+    ["Bigger sites", TIMES.complex],
+    ["Rush", TIMES.rush],
+    ["Good to know", "The count starts once all your materials arrive. Rest assured, we deliver as soon as your site is ready."],
+  ]],
+  ["Edits & Changes", [
+    ["Content edits", "Ask for as many content edits as you need while we're designing, like new photos, typo fixes, or a different song."],
+    ["Big changes", "A major layout change or redesign after we've started costs ₱150 each."],
+    ["24-hour typo warranty", "After we send your final link, you have 24 hours to report typos and we'll fix them for free."],
+    ["Double-check", "Please verify names, dates, addresses, and all other contents before sending. We aren't responsible for mistakes in the info you provide."],
+  ]],
+  ["Link Access", [
+    ["Permanent", "Your site stays online permanently."],
+    ["Testimonial", "If you enjoyed working with us, we'd love a short testimonial. It's totally optional!"],
+  ]],
+];
+
+const FAQS = [
+  ["When should I book?", "Book as early as you can, well before your invitations need to go out. Most websites take 1 to 2 weeks, and bigger or more complex ones (like sites with RSVP) can take up to 3 weeks. The clock starts once we have all your materials. Your first draft arrives within 4 business days of your downpayment, sooner if it's ready early."],
+  ["How do I place an order?", "Pick a template, read the policies, tick the agreement box, then message us on Telegram, TikTok, or Instagram. Your slot is reserved once the 50% downpayment is in."],
+  ["Can I see a sample first?", "Yes! Every template has a live preview. Tap Live preview on any card to try it right here."],
+  ["What do I need to send?", "High-resolution photos, your final wording, entourage list, event schedule, and venue links. One shared Google Drive folder is easiest. We start once it's all in, so send late details quickly to stay on track."],
+  ["Can I request edits?", "Yes. While we're designing, you can ask for content edits like swapping photos, fixing typos, or changing the song. A major layout change after we've started costs ₱150."],
+  ["Will it work on phones?", "Yes! Every site is built for phones, tablets, and computers. Guests just open your link, with no app or login."],
+  ["How does RSVP work?", "Standard RSVP uses a Google Form, so replies are collected in Google and you can open them in a Google Sheet anytime. Premium RSVP is a themed page that matches your site: guests confirm there, replies are saved to a Google Sheet, and it can use an editable guest list and a limit per invite."],
+  ["Can I get a rush order?", "Yes. A 1–2 day rush costs half the price of your website and depends on slot availability."],
+  ["Are payments refundable?", "No. The 50% downpayment is non-refundable, and once design or drafting has begun, payments can't be refunded."],
+  ["How long will my link stay online?", "Permanently! If you enjoyed the experience, we'd love a short testimonial, but it's optional."],
+  ["I don't see my occasion. What now?", "New designs are added regularly. Message us with your idea and we'll let you know what we can do."],
+  ["Is there a warranty for typos?", "Yes! After we send your final link, you have 24 hours to report any typos and we'll fix them for free."],
+  ["What if my details have a mistake?", "Please double-check names, dates, addresses, and all other contents before sending. We aren't responsible for errors in the information you provide."],
+];
+
+const Arrow = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const parse = () => {
+  const p = (window.location.hash.replace(/^#\/?/, "") || "home").split("/");
+  return { page: p[0] || "home", sub: p[1] || "all", sub2: p[2] || "all" };
+};
+
+function Price({ t }) {
+  if (!t.price) return <span className="ask">Message for rate</span>;
+  const off = pct(t);
   return (
-    <svg
-      width="19"
-      height="19"
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden="true"
-    >
-      <path
-        d="M19 12H5M11 18l-6-6 6-6"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function ArrowRight() {
-  return (
-    <svg
-      width="19"
-      height="19"
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden="true"
-    >
-      <path
-        d="M5 12h14M13 6l6 6-6 6"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function HeartIcon() {
-  return (
-    <svg
-      width="17"
-      height="17"
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden="true"
-    >
-      <path
-        d="M20.8 8.7c0 5.1-8.8 10.1-8.8 10.1S3.2 13.8 3.2 8.7A4.7 4.7 0 0 1 12 6.4a4.7 4.7 0 0 1 8.8 2.3Z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function CheckIcon() {
-  return (
-    <svg
-      width="14"
-      height="14"
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden="true"
-    >
-      <path
-        d="m5 12 4.2 4.2L19 6.5"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-/*
-============================================================
-MAIN APP
-============================================================
-*/
-
-export default function App() {
-  const carouselRef = useRef(null);
-  const [mobileMenu, setMobileMenu] = useState(false);
-  const [agreed, setAgreed] = useState(false);
-
-  /*
-  ============================================================
-  CAROUSEL
-  ============================================================
-
-  Works with:
-  - desktop arrows
-  - mobile arrows
-  - touch/swipe
-  - any number of cards
-  */
-
-  const scrollCarousel = (direction) => {
-    if (!carouselRef.current) return;
-
-    const carousel = carouselRef.current;
-    const card = carousel.querySelector(".template-card");
-
-    if (!card) return;
-
-    const gap = 22;
-    const amount = card.getBoundingClientRect().width + gap;
-
-    carousel.scrollBy({
-      left: direction * amount,
-      behavior: "smooth",
-    });
-  };
-
-  /*
-  ============================================================
-  SECTION NAVIGATION
-  ============================================================
-  */
-
-  const scrollToSection = (id) => {
-    setMobileMenu(false);
-
-    const section = document.getElementById(id);
-
-    if (section) {
-      section.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-  };
-
-  /*
-  ============================================================
-  CONTACT MESSAGE
-  ============================================================
-  */
-
-  const contactMessage = useMemo(
-    () =>
-      encodeURIComponent(
-        "Hi Kate Studio! I’m interested in ordering a digital website template. I have read and understood the ordering conditions and would like to ask about the available templates and customization options."
-      ),
-    []
-  );
-
-  const telegramLink = `${SOCIALS.telegram}?text=${contactMessage}`;
-
-  return (
-    <div className="site-shell">
-      {/* ======================================================
-          TOP RIBBON
-          ====================================================== */}
-
-      <div className="top-ribbon">
-        <span>♡</span>
-        Digital websites made with care
-        <span>♡</span>
-      </div>
-
-      {/* ======================================================
-          NAVBAR
-          ====================================================== */}
-
-      <header className="navbar">
-        <div className="nav-inner">
-          <button
-            className="brand"
-            onClick={() => scrollToSection("home")}
-            aria-label="Go to homepage"
-          >
-            <span className="brand-main">KATE STUDIO</span>
-            <span className="brand-sub">DIGITAL LOVE STORIES</span>
-          </button>
-
-          <nav className={`nav-links ${mobileMenu ? "open" : ""}`}>
-            <button onClick={() => scrollToSection("templates")}>
-              Templates
-            </button>
-
-            <button onClick={() => scrollToSection("included")}>
-              What's Included
-            </button>
-
-            <button onClick={() => scrollToSection("addons")}>
-              Add-ons
-            </button>
-
-            <button onClick={() => scrollToSection("conditions")}>
-              Conditions
-            </button>
-
-            <button onClick={() => scrollToSection("contact")}>
-              Contact
-            </button>
-          </nav>
-
-          <button
-            className="mobile-menu"
-            onClick={() => setMobileMenu((value) => !value)}
-            aria-label="Open menu"
-            aria-expanded={mobileMenu}
-          >
-            {mobileMenu ? "×" : "☰"}
-          </button>
-        </div>
-      </header>
-
-      {/* ======================================================
-          HERO
-          ====================================================== */}
-
-      <main>
-        <section className="hero" id="home">
-          <div className="hero-decoration bow bow-one">
-            ୨୧
-          </div>
-
-          <div className="hero-decoration bow bow-two">
-            ୨୧
-          </div>
-
-          <div className="hero-decoration sparkle sparkle-one">
-            ✦
-          </div>
-
-          <div className="hero-decoration sparkle sparkle-two">
-            ✧
-          </div>
-
-          <div className="hero-content">
-            <div className="eyebrow">
-              <HeartIcon />
-              DIGITAL WEBSITES FOR YOUR FAVORITE PERSON
-            </div>
-
-            <h1>
-              A little website
-              <br />
-              <em>made just for you.</em>
-            </h1>
-
-            <p>
-              Thoughtfully designed digital love stories, letters, and
-              interactive experiences made to turn your memories into
-              something you can keep and share.
-            </p>
-
-            <div className="hero-actions">
-              <button
-                className="primary-button"
-                onClick={() => scrollToSection("templates")}
-              >
-                Browse Templates
-                <ArrowRight />
-              </button>
-
-              <button
-                className="text-button"
-                onClick={() => scrollToSection("conditions")}
-              >
-                Read before ordering
-                <span>→</span>
-              </button>
-            </div>
-
-            <p className="hero-note">
-              STARTING AT ₱159 · MADE WITH CODE + CARE
-            </p>
-          </div>
-        </section>
-
-        {/* ====================================================
-            TEMPLATE INTRO
-            ==================================================== */}
-
-        <section className="intro-section" id="templates">
-          <div className="section-heading centered">
-            <span className="mini-label">
-              THE COLLECTION
-            </span>
-
-            <h2>
-              Choose your little corner of the internet.
-            </h2>
-
-            <p>
-              Pick a template that fits your story. Every website is
-              coded and prepared individually, so your final version
-              feels personal instead of looking like a generic copy-paste page.
-            </p>
-          </div>
-        </section>
-
-        {/* ====================================================
-            TEMPLATE CAROUSEL
-            ==================================================== */}
-
-        <section className="designs-section">
-          <div className="carousel-heading">
-            <div>
-              <span className="mini-label">
-                LIVE PREVIEWS
-              </span>
-
-              <h2>
-                See it before you choose it.
-              </h2>
-            </div>
-
-            <div className="carousel-controls">
-              <button
-                type="button"
-                onClick={() => scrollCarousel(-1)}
-                aria-label="Previous template"
-              >
-                <ArrowLeft />
-              </button>
-
-              <button
-                type="button"
-                onClick={() => scrollCarousel(1)}
-                aria-label="Next template"
-              >
-                <ArrowRight />
-              </button>
-            </div>
-          </div>
-
-          <div
-            className="design-carousel"
-            ref={carouselRef}
-            aria-label="Template carousel"
-          >
-            {templates.map((template, index) => (
-              <article
-                className="template-card"
-                key={template.id}
-                style={{
-                  "--card-index": index,
-                }}
-              >
-                {/* LIVE WEBSITE PREVIEW */}
-
-                <div className="template-preview">
-                  <iframe
-                    src={template.preview}
-                    title={`${template.title} live preview`}
-                    loading="lazy"
-                    scrolling="yes"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                  />
-
-                  <div className="preview-overlay">
-                    <span className="preview-label">
-                      LIVE PREVIEW · {template.id}
-                    </span>
-
-                    <a
-                      className="preview-open"
-                      href={template.link}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Open full site ↗
-                    </a>
-                  </div>
-                </div>
-
-                {/* TEMPLATE INFORMATION */}
-
-                <div className="template-info">
-                  <div className="template-topline">
-                    <span className="template-code">
-                      {template.id}
-                    </span>
-
-                    <span className="template-category">
-                      {template.category}
-                    </span>
-                  </div>
-
-                  <h3>
-                    {template.title}
-                  </h3>
-
-                  <p className="template-description">
-                    {template.description}
-                  </p>
-
-                  <div className="perfect-for">
-                    <span>
-                      PERFECT FOR
-                    </span>
-
-                    <p>
-                      {template.perfectFor}
-                    </p>
-                  </div>
-
-                  <div className="included-mini">
-                    {template.included
-                      .slice(0, 4)
-                      .map((item) => (
-                        <span key={item}>
-                          <CheckIcon />
-                          {item}
-                        </span>
-                      ))}
-                  </div>
-
-                  <div className="price-row">
-                    <div>
-                      <span className="price-label">
-                        STARTING PRICE
-                      </span>
-
-                      <strong>
-                        ₱{template.price}
-                      </strong>
-                    </div>
-
-                    <a
-                      className="view-button"
-                      href={template.link}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      View Template
-                      <ArrowRight />
-                    </a>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-
-          <div className="carousel-hint">
-            <ArrowLeft />
-
-            <span>
-              Swipe or use the arrows to explore
-            </span>
-
-            <ArrowRight />
-          </div>
-        </section>
-
-        {/* ====================================================
-            WHY KATE STUDIO
-            ==================================================== */}
-
-        <section className="why-section">
-          <div className="why-inner">
-            <div className="why-copy">
-              <span className="mini-label">
-                WHY KATE STUDIO
-              </span>
-
-              <h2>
-                Not just a template.
-                <br />
-                <em>It's your story.</em>
-              </h2>
-
-              <p>
-                Every website is coded and customized with intention.
-                The goal isn't to give you another generic downloadable
-                template — it's to give you a little digital space that
-                feels like it belongs to the two of you.
-              </p>
-
-              <p>
-                Kate Studio focuses on clean responsive design,
-                thoughtful details, and experiences that work beautifully
-                on both phones and desktops.
-              </p>
-            </div>
-
-            <div className="promise-card">
-              <div className="promise-icon">
-                ♡
-              </div>
-
-              <h3>
-                Coded with care.
-              </h3>
-
-              <div className="promise-line" />
-
-              <p>
-                Built using real web development practices with
-                responsive layouts, clean structure, and attention
-                to the little details.
-              </p>
-
-              <div className="promise-details">
-                <span>RESPONSIVE</span>
-                <span>PERSONALIZED</span>
-                <span>MOBILE FRIENDLY</span>
-                <span>HAND CODED</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ====================================================
-            WHAT'S INCLUDED
-            ==================================================== */}
-
-        <section className="process-section" id="included">
-          <div className="section-heading centered">
-            <span className="mini-label">
-              WHAT YOU GET
-            </span>
-
-            <h2>
-              Simple from order to delivery.
-            </h2>
-
-            <p>
-              The base price already covers the essentials.
-              You only pay more when you request something
-              outside the standard personalization.
-            </p>
-          </div>
-
-          <div className="process-grid">
-            <div className="process-card">
-              <span>01</span>
-              <div className="process-icon">♡</div>
-
-              <h3>Choose</h3>
-
-              <p>
-                Pick your favorite template and send the details
-                needed for personalization.
-              </p>
-            </div>
-
-            <div className="process-card">
-              <span>02</span>
-              <div className="process-icon">✎</div>
-
-              <h3>Personalize</h3>
-
-              <p>
-                Names, messages, dates, photos, and other included
-                content are prepared for you.
-              </p>
-            </div>
-
-            <div className="process-card">
-              <span>03</span>
-              <div className="process-icon">⌘</div>
-
-              <h3>Code</h3>
-
-              <p>
-                Your website is edited, tested, and optimized
-                for different screen sizes.
-              </p>
-            </div>
-
-            <div className="process-card">
-              <span>04</span>
-              <div className="process-icon">♡</div>
-
-              <h3>Review</h3>
-
-              <p>
-                You receive a preview and can request the
-                included minor revision before final approval.
-              </p>
-            </div>
-
-            <div className="process-card">
-              <span>05</span>
-              <div className="process-icon">↗</div>
-
-              <h3>Deliver</h3>
-
-              <p>
-                Expected delivery is 3–5 days. If your website
-                is completed sooner, it may be delivered ahead
-                of schedule.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* ====================================================
-            ADD-ONS
-            ==================================================== */}
-
-        <section className="addons-section" id="addons">
-          <div className="section-heading centered">
-            <span className="mini-label">
-              OPTIONAL ADD-ONS
-            </span>
-
-            <h2>
-              Want a little extra?
-            </h2>
-
-            <p>
-              The base template already comes with basic personalization.
-              Add-ons are only charged when they require additional
-              design, coding, editing, or preparation.
-            </p>
-          </div>
-
-          <div className="addon-grid">
-            <div className="addon-card">
-              <span className="addon-number">
-                ADD-ON 01
-              </span>
-
-              <h3>
-                Custom Color Palette
-              </h3>
-
-              <p>
-                Want something other than the original template colors?
-                Request a custom palette based on your preferred colors
-                or reference.
-              </p>
-
-              <strong>
-                QUOTED DEPENDING ON WORK
-              </strong>
-            </div>
-
-            <div className="addon-card">
-              <span className="addon-number">
-                ADD-ON 02
-              </span>
-
-              <h3>
-                Extra Revision
-              </h3>
-
-              <p>
-                One minor revision is included after the initial preview.
-                Additional revision rounds may require an extra fee
-                depending on the amount of work.
-              </p>
-
-              <strong>
-                QUOTED DEPENDING ON WORK
-              </strong>
-            </div>
-
-            <div className="addon-card">
-              <span className="addon-number">
-                ADD-ON 03
-              </span>
-
-              <h3>
-                Custom Feature
-              </h3>
-
-              <p>
-                Want a feature that isn't already part of the template?
-                Examples include new sections, interactions, special
-                effects, or custom functionality.
-              </p>
-
-              <strong>
-                QUOTED FIRST
-              </strong>
-            </div>
-
-            <div className="addon-card">
-              <span className="addon-number">
-                ADD-ON 04
-              </span>
-
-              <h3>
-                Extra Content
-              </h3>
-
-              <p>
-                Additional pages, sections, media preparation,
-                or unusually large amounts of content may require
-                additional work.
-              </p>
-
-              <strong>
-                QUOTED DEPENDING ON WORK
-              </strong>
-            </div>
-          </div>
-
-          <div className="color-note">
-            <span>
-              TIP
-            </span>
-
-            For custom colors, send the HEX codes you want.
-            You can find palette inspiration from Color Hunt.
-          </div>
-        </section>
-
-        {/* ====================================================
-            BASIC PERSONALIZATION
-            ==================================================== */}
-
-        <section className="info-banner">
-          <div className="info-banner-inner">
-            <div>
-              <span className="mini-label">
-                BASIC PERSONALIZATION
-              </span>
-
-              <h2>
-                Make the template yours.
-              </h2>
-
-              <p>
-                Basic personalization includes changing the names,
-                messages, dates, photos, and other editable content
-                already designed into the chosen template.
-              </p>
-            </div>
-
-            <div className="file-badges">
-              <span>TEXT</span>
-              <span>PHOTOS</span>
-              <span>NAMES</span>
-              <span>DATES</span>
-            </div>
-          </div>
-        </section>
-
-        {/* ====================================================
-            CONDITIONS
-            ==================================================== */}
-
-        <section className="terms-section" id="conditions">
-          <div className="terms-card">
-            <div className="section-heading">
-              <span className="mini-label">
-                PLEASE READ BEFORE ORDERING
-              </span>
-
-              <h2>
-                Small rules that keep everything clear.
-              </h2>
-
-              <p>
-                Please review these conditions before sending
-                your order so both sides know what is included.
-              </p>
-            </div>
-
-            <div className="terms-grid">
-              <div>
-                <h3>01 · PAYMENT</h3>
-
-                <p>
-                  Orders are confirmed according to the payment
-                  arrangement communicated by Kate Studio before
-                  work begins. Work may start once the required
-                  payment or confirmation has been received.
-                </p>
-              </div>
-
-              <div>
-                <h3>02 · DELIVERY</h3>
-
-                <p>
-                  Standard estimated delivery is 3–5 days.
-                  This is an estimate, not a guaranteed exact
-                  delivery time. Completed websites may be
-                  delivered earlier.
-                </p>
-              </div>
-
-              <div>
-                <h3>03 · CONTENT</h3>
-
-                <p>
-                  The buyer is responsible for providing accurate
-                  names, messages, dates, photos, links, and other
-                  requested content. Delays in receiving complete
-                  content may affect delivery.
-                </p>
-              </div>
-
-              <div>
-                <h3>04 · ONE MINOR REVISION</h3>
-
-                <p>
-                  One minor revision is included after the initial
-                  preview. Minor means small text, image, spacing,
-                  or similar adjustments that do not require
-                  redesigning the template.
-                </p>
-              </div>
-
-              <div>
-                <h3>05 · MAJOR CHANGES</h3>
-
-                <p>
-                  Major redesigns, new sections, custom features,
-                  substantial layout changes, or extensive content
-                  changes are not included in the base price and
-                  may be quoted separately.
-                </p>
-              </div>
-
-              <div>
-                <h3>06 · COLOR CHANGES</h3>
-
-                <p>
-                  The original template palette is included.
-                  A fully custom color palette is an optional
-                  add-on because colors may need
-                  to be adjusted across multiple design elements.
-                </p>
-              </div>
-
-              <div>
-                <h3>07 · APPROVAL</h3>
-
-                <p>
-                  Please review the preview carefully before final
-                  approval. Once approved, additional changes may
-                  be treated as a new revision or add-on depending
-                  on the work required.
-                </p>
-              </div>
-
-              <div>
-                <h3>08 · TEMPLATE RIGHTS</h3>
-
-                <p>
-                  The purchase covers the personalized website
-                  service for the buyer. Original template code,
-                  design systems, assets, and reusable source
-                  materials remain the property of Kate Studio
-                  unless otherwise agreed.
-                </p>
-              </div>
-
-              <div>
-                <h3>09 · THIRD-PARTY SERVICES</h3>
-
-                <p>
-                  External services, hosting, domains, paid fonts,
-                  paid assets, music licensing, or other third-party
-                  costs are not automatically included unless
-                  specifically stated.
-                </p>
-              </div>
-
-              <div>
-                <h3>10 · CONTENT RESPONSIBILITY</h3>
-
-                <p>
-                  Buyers are responsible for having permission to
-                  provide and use the photos, music, messages, logos,
-                  and other content supplied for their website.
-                </p>
-              </div>
-
-              <div>
-                <h3>11 · PRIVACY</h3>
-
-                <p>
-                  Information and files submitted for customization
-                  should be limited to what is necessary for the order.
-                  Do not send passwords, payment-card details, or
-                  other sensitive account credentials.
-                </p>
-              </div>
-
-              <div>
-                <h3>12 · COMMUNICATION</h3>
-
-                <p>
-                  Please keep order details and revision requests
-                  in the designated communication channel so
-                  instructions remain clear and can be properly followed.
-                </p>
-              </div>
-            </div>
-
-            {/* ==================================================
-                WORKING AGREEMENT CHECKBOX
-                ================================================== */}
-
-            <div className="agreement-box">
-              <label className="agreement-label">
-                <input
-                  type="checkbox"
-                  checked={agreed}
-                  onChange={(event) =>
-                    setAgreed(event.target.checked)
-                  }
-                />
-
-                <span className="custom-checkbox">
-                  {agreed && <CheckIcon />}
-                </span>
-
-                <span>
-                  I have read and understood the information above,
-                  including the pricing, delivery estimate,
-                  personalization scope, revision policy,
-                  add-ons, and ordering conditions.
-                </span>
-              </label>
-
-              {/* CONTACT BUTTONS ONLY APPEAR ENABLED AFTER CHECKING */}
-
-              <div className="locked-buttons">
-                <a
-                  className={`locked-contact telegram ${
-                    agreed ? "enabled" : ""
-                  }`}
-                  href={agreed ? telegramLink : undefined}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-disabled={!agreed}
-                  onClick={(event) => {
-                    if (!agreed) {
-                      event.preventDefault();
-                    }
-                  }}
-                >
-                  Message on Telegram ↗
-                </a>
-
-                <a
-                  className={`locked-contact tiktok ${
-                    agreed ? "enabled" : ""
-                  }`}
-                  href={agreed ? SOCIALS.tiktok : undefined}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-disabled={!agreed}
-                  onClick={(event) => {
-                    if (!agreed) {
-                      event.preventDefault();
-                    }
-                  }}
-                >
-                  Visit TikTok ↗
-                </a>
-
-                <a
-                  className={`locked-contact instagram ${
-                    agreed ? "enabled" : ""
-                  }`}
-                  href={agreed ? SOCIALS.instagram : undefined}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-disabled={!agreed}
-                  onClick={(event) => {
-                    if (!agreed) {
-                      event.preventDefault();
-                    }
-                  }}
-                >
-                  Visit Instagram ↗
-                </a>
-              </div>
-
-              <p className="agreement-note">
-                {agreed
-                  ? "You're all set — you can now contact Kate Studio."
-                  : "Please check the box above to enable the contact buttons."}
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* ====================================================
-            FAQ
-            ==================================================== */}
-
-        <FAQ />
-
-        {/* ====================================================
-            CONTACT
-
-            No duplicate direct-contact buttons here.
-            The actual contact buttons are in Conditions,
-            after the checkbox.
-            ==================================================== */}
-
-        <section className="contact-section" id="contact">
-          <div className="contact-content">
-            <div className="contact-decoration">
-              ୨୧
-            </div>
-
-            <span className="mini-label">
-              READY WHEN YOU ARE
-            </span>
-
-            <h2>
-              Let's make something sweet.
-            </h2>
-
-            <p>
-              Choose a template, prepare your content, and
-              review the ordering conditions above. Once you've
-              checked the agreement box, you can contact Kate Studio.
-            </p>
-
-            <button
-              className="contact-button"
-              onClick={() => scrollToSection("conditions")}
-            >
-              Review Conditions & Contact
-              <ArrowRight />
-            </button>
-          </div>
-        </section>
-      </main>
-
-      {/* ======================================================
-          FOOTER
-          ====================================================== */}
-
-      <footer className="footer">
-        <div className="footer-inner">
-          <div className="footer-brand">
-            <span className="brand-main">
-              KATE STUDIO
-            </span>
-
-            <span className="brand-sub">
-              DIGITAL LOVE STORIES
-            </span>
-          </div>
-
-          <p>
-            Thoughtfully designed & coded digital experiences.
-          </p>
-
-          <div className="footer-links">
-            <button onClick={() => scrollToSection("templates")}>
-              Templates
-            </button>
-
-            <button onClick={() => scrollToSection("conditions")}>
-              Conditions
-            </button>
-
-            <a
-              href={SOCIALS.instagram}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Instagram
-            </a>
-
-            <a
-              href={SOCIALS.tiktok}
-              target="_blank"
-              rel="noreferrer"
-            >
-              TikTok
-            </a>
-
-            <a
-              href={SOCIALS.telegram}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Telegram
-            </a>
-          </div>
-        </div>
-
-        <div className="copyright">
-          © {new Date().getFullYear()} Kate Studio. All rights reserved.
-        </div>
-      </footer>
+    <div className="price">
+      {off > 0 && <s>₱{t.original}</s>}
+      <strong>₱{t.price}</strong>
+      {off > 0 && <em>-{off}%</em>}
     </div>
   );
 }
 
-/*
-============================================================
-FAQ COMPONENT
-============================================================
-*/
+function Card({ t, onPreview }) {
+  return (
+    <article className="card">
+      <div className="thumb" onClick={() => t.link && onPreview(t)}>
+        {t.preview ? <iframe src={t.preview} title={`${t.title} preview`} loading="lazy" /> : <div className="soon">Preview coming soon</div>}
+        <span className="id">{t.id}</span>
+        {t.rsvp && <span className={t.rsvp === "premium" ? "tag prem" : "tag"}>{t.rsvp === "premium" ? "Premium RSVP" : "Standard RSVP"}</span>}
+      </div>
+      <div className="body">
+        <small>{t.category}</small>
+        <h3>{t.title}</h3>
+        <p>{t.description}</p>
+        <div className="foot">
+          <Price t={t} />
+          {t.link ? <button className="btn sm" onClick={() => onPreview(t)}>Live preview <Arrow /></button> : <span className="muted-sm">Coming soon</span>}
+        </div>
+      </div>
+    </article>
+  );
+}
 
-function FAQ() {
-  const [openIndex, setOpenIndex] = useState(null);
+function Preview({ t, onClose }) {
+  useEffect(() => {
+    const k = (e) => e.key === "Escape" && onClose();
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", k);
+    return () => { document.body.style.overflow = ""; window.removeEventListener("keydown", k); };
+  }, [onClose]);
+  return (
+    <div className="modal" onClick={onClose}>
+      <div className="mbox" onClick={(e) => e.stopPropagation()}>
+        <div className="mbar">
+          <div><b>{t.title}</b><Price t={t} /></div>
+          <div className="row">
+            <a className="btn ghost sm" href={t.link} target="_blank" rel="noreferrer">New tab ↗</a>
+            <a className="btn sm" href="#/policies/contact">Book this</a>
+            <button className="x" onClick={onClose} aria-label="Close">×</button>
+          </div>
+        </div>
+        <iframe src={t.preview || t.link} title={`${t.title} live preview`} />
+      </div>
+    </div>
+  );
+}
 
-  const questions = [
-    {
-      question: "What does basic personalization include?",
-      answer:
-        "Basic personalization includes the editable content already intended by the chosen template, such as names, messages, dates, photos, and similar content replacement.",
-    },
+function Home() {
+  return (
+    <>
+      <section className="hero wrap">
+        <div>
+          <h1>Websites for your <em>favorite moments.</em></h1>
+          <p>Love stories, birthday surprises, and wedding invitations, all coded by hand and delivered as one link you can send to anyone.</p>
+          <div className="row">
+            <a className="btn" href="#/templates">Browse templates <Arrow /></a>
+            <a className="btn ghost" href="#/policies">Policies & FAQ</a>
+          </div>
+          {startingAt > 0 && <p className="note">Starting at <b>₱{startingAt}</b></p>}
+        </div>
+            </section>
 
-    {
-      question: "Can I request a different color?",
-      answer:
-        "Yes. The original template color palette is included. A custom color palette is an optional add-on because changing colors throughout a design can require additional editing.",
-    },
+      <section className="wrap">
+        <div className="dp">
+          <b>50%</b>
+          <div>
+            <h2>Just 50% down to book your slot.</h2>
+            <p>Pay the rest only when your site is ready to go live.</p>
+          </div>
+        </div>
+      </section>
 
-    {
-      question: "Can I request something that isn't in the template?",
-      answer:
-        "Yes, depending on the request. New sections, custom interactions, major layout changes, and other features may require an additional fee. The price will be discussed before the extra work begins.",
-    },
+      <section className="wrap">
+        <div className="head"><span className="label">Shop by occasion</span><h2>What are we celebrating?</h2></div>
+        {TYPES.map((ty) => (
+          <div className="grp" key={ty.key}>
+            <div className="grp-h">
+              <div><h3>{ty.label}</h3><p>{ty.blurb}</p></div>
+              <a className="btn ghost sm" href={`#/templates/${ty.key}`}>See all <Arrow /></a>
+            </div>
+            <div className="occ">
+              {OCCASIONS.filter((o) => o.type === ty.key).map((o) => {
+                const n = allTemplates.filter((t) => t.type === ty.key && t.occasion === o.key).length;
+                const inner = (
+                  <>
+                    <span>{o.icon}</span>
+                    <h3>{o.label}</h3>
+                    <p>{o.blurb}</p>
+                    <small>{n ? <>{n} {n === 1 ? "design" : "designs"} <Arrow /></> : "Coming soon"}</small>
+                  </>
+                );
+                return n ? <a key={o.key} className="ocard" href={`#/templates/${ty.key}/${o.key}`}>{inner}</a> : <div key={o.key} className="ocard dim">{inner}</div>;
+              })}
+            </div>
+          </div>
+        ))}
+      </section>
 
-    {
-      question: "How long does the website take?",
-      answer:
-        "The standard estimated delivery is 3–5 days. If your website is completed earlier, it may be delivered ahead of schedule.",
-    },
+      <section className="wrap">
+        <div className="head"><span className="label">How it works</span><h2>Four easy steps.</h2></div>
+        <div className="steps">
+          {STEPS.map(([h, p], i) => <div className="step" key={h}><b>0{i + 1}</b><h3>{h}</h3><p>{p}</p></div>)}
+        </div>
+      </section>
 
-    {
-      question: "Is a revision included?",
-      answer:
-        "Yes. One minor revision is included after the initial preview. Larger changes or additional revision rounds may have an additional fee.",
-    },
+      <section className="wrap">
+        <div className="about">
+          <div>
+            <span className="label">About</span>
+            <h2>Hi, I'm Kate!</h2>
+            <p>I design and code every site myself, from the first sketch to the final link. Kate Studio began with my love for designing, and now it's how I help people share their milestones in a way they'll be proud of.</p>
+          </div>
+          <a className="btn" href="https://kateannedavid.netlify.app/" target="_blank" rel="noreferrer">See my work <Arrow /></a>
+        </div>
+      </section>
+    </>
+  );
+}
 
-    {
-      question: "Do I need to know how to code?",
-      answer:
-        "No. You only need to provide the information and files requested for your chosen template. Kate Studio handles the coding and website preparation.",
-    },
-  ];
+function Templates({ type, occ }) {
+  const [rsvp, setRsvp] = useState("all");
+  const [active, setActive] = useState(null);
+  const ty = TYPES.some((x) => x.key === type) ? type : "website";
+  const ofType = allTemplates.filter((t) => t.type === ty);
+  const occs = OCCASIONS.filter((o) => o.type === ty && ofType.some((t) => t.occasion === o.key));
+  const oc = occs.some((o) => o.key === occ) ? occ : "all";
+  const shown = ofType.filter((t) => (oc === "all" || t.occasion === oc) && (rsvp === "all" || t.rsvp === rsvp));
+
+  useEffect(() => setRsvp("all"), [type, occ]);
+  const go = (a, b) => { window.location.hash = `#/templates/${a}${b && b !== "all" ? `/${b}` : ""}`; };
 
   return (
-    <section className="faq-section">
-      <div className="section-heading centered">
-        <span className="mini-label">
-          FAQ
-        </span>
-
-        <h2>
-          A few things you might be wondering.
-        </h2>
+    <section className="wrap">
+      <div className="head"><span className="label">Templates</span><h1 className="h1s">Find your design.</h1></div>
+      <div className="tabs big">
+        {TYPES.map((x) => <button key={x.key} className={ty === x.key ? "on" : ""} onClick={() => go(x.key)}>{x.label}</button>)}
       </div>
-
-      <div className="faq-list">
-        {questions.map((item, index) => {
-          const isOpen = openIndex === index;
-
-          return (
-            <div
-              className={`faq-item ${
-                isOpen ? "open" : ""
-              }`}
-              key={item.question}
-            >
-              <button
-                className="faq-question"
-                onClick={() =>
-                  setOpenIndex(
-                    isOpen ? null : index
-                  )
-                }
-                aria-expanded={isOpen}
-              >
-                <span>
-                  {item.question}
-                </span>
-
-                <span className="faq-plus">
-                  {isOpen ? "−" : "+"}
-                </span>
-              </button>
-
-              <div className="faq-answer">
-                <p>
-                  {item.answer}
-                </p>
-              </div>
-            </div>
-          );
-        })}
+      <div className="tabs">
+        {[{ key: "all", label: "All occasions" }, ...occs].map((o) => (
+          <button key={o.key} className={oc === o.key ? "on" : ""} onClick={() => go(ty, o.key)}>{o.label}</button>
+        ))}
       </div>
+      {ty === "invitation" && (
+        <div className="tabs sub">
+          <span>RSVP type:</span>
+          {[{ key: "all", label: "Any" }, ...RSVP_TYPES].map((r) => (
+            <button key={r.key} className={rsvp === r.key ? "on" : ""} onClick={() => setRsvp(r.key)}>{r.label}</button>
+          ))}
+        </div>
+      )}
+      <div className="grid">{shown.map((t) => <Card t={t} key={t.id} onPreview={setActive} />)}</div>
+      {!shown.length && <p className="empty">Nothing here yet. New designs are on the way!</p>}
+      {active && <Preview t={active} onClose={() => setActive(null)} />}
     </section>
+  );
+}
+
+function Policies({ sub }) {
+  const [agreed, setAgreed] = useState(false);
+  useEffect(() => {
+    if (sub === "contact") setTimeout(() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }), 60);
+  }, [sub]);
+  const [open, setOpen] = useState(0);
+  const msg = encodeURIComponent("Hi Kate Studio! I'd like to order a website. I've read the payment, delivery, and edit policies.");
+  const lock = (href) => ({
+    href: agreed ? href : undefined, target: "_blank", rel: "noreferrer",
+    "aria-disabled": !agreed, onClick: (e) => !agreed && e.preventDefault(),
+  });
+  return (
+    <>
+      <section className="wrap">
+        <div className="head"><span className="label">Before you order</span><h1 className="h1s">Policies</h1></div>
+        <div className="dp small"><b>50%</b><div><h2>Downpayment to start</h2><p>Non-refundable. The balance is paid before your final link is released.</p></div></div>
+        <div className="notes">
+          <p>💌 Every invitation is delivered as a digital link you can share anywhere.</p>
+          <p>🎨 Each site is built from scratch with HTML, CSS, and JavaScript, no drag-and-drop builders.</p>
+        </div>
+        <div className="pol">
+          {POLICIES.map(([h, rows]) => (
+            <div className="pcard" key={h}><h3>{h}</h3>{rows.map(([k, v]) => <p key={k}><b>{k}.</b> {v}</p>)}</div>
+          ))}
+        </div>
+        <div className="head" style={{ marginTop: 40 }}><span className="label">Optional</span><h2>Add-ons</h2></div>
+        <div className="addons">{ADDONS.map(([h, p, pr]) => <div key={h}><h4>{h}</h4><p>{p}</p><b className="apr">{pr}</b></div>)}</div>
+      </section>
+
+      <section className="wrap narrow">
+        <div className="head"><span className="label">FAQ</span><h2>Quick answers.</h2></div>
+        {FAQS.map(([q, a], i) => (
+          <div className={open === i ? "faq open" : "faq"} key={q}>
+            <button onClick={() => setOpen(open === i ? null : i)} aria-expanded={open === i}>{q}<span>{open === i ? "−" : "+"}</span></button>
+            {open === i && <p>{a}</p>}
+          </div>
+        ))}
+      </section>
+
+      <section className="wrap" id="contact">
+        <div className="contact">
+          <h2>Ready to book?</h2>
+          <label className="agree">
+            <input type="checkbox" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} />
+            <span>I've read and agree to the payment, delivery, and edit policies above.</span>
+          </label>
+          <div className="row">
+            <a className={agreed ? "btn" : "btn off"} {...lock(`${SOCIALS.telegram}?text=${msg}`)}>Message on Telegram ↗</a>
+            <a className={agreed ? "btn ghost" : "btn ghost off"} {...lock(SOCIALS.tiktok)}>TikTok ↗</a>
+            <a className={agreed ? "btn ghost" : "btn ghost off"} {...lock(SOCIALS.instagram)}>Instagram ↗</a>
+          </div>
+          <p className="note">{agreed ? "Great, we can't wait to hear from you!" : "Tick the box to unlock the contact buttons."}</p>
+        </div>
+      </section>
+    </>
+  );
+}
+
+export default function App() {
+  const [route, setRoute] = useState(parse);
+  const [menu, setMenu] = useState(false);
+  const [ann, setAnn] = useState("");
+
+  // Edit public/announcement.json to change the top banner (set "show": false to hide it).
+  useEffect(() => {
+    fetch(`/announcement.json?t=${Date.now()}`).then((r) => r.json()).then((d) => setAnn(d.show && d.text ? d.text : "")).catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    const on = () => { setRoute(parse()); setMenu(false); window.scrollTo(0, 0); };
+    window.addEventListener("hashchange", on);
+    return () => window.removeEventListener("hashchange", on);
+  }, []);
+
+  const nav = [["home", "Home"], ["templates", "Templates"], ["policies", "Policies & FAQ"]];
+
+  return (
+    <div className="shell">
+      {ann && <div className="announce">{ann}</div>}
+      <header className="nav">
+        <div className="wrap nav-in">
+          <a className="brand" href="#/">
+            <img className="logo" src="/logo.jpg" alt="Kate Studio logo" />
+            <span>Kate Studio<small>digital invitations & love stories</small></span>
+          </a>
+          <nav className={menu ? "links open" : "links"}>
+            {nav.map(([k, l]) => <a key={k} href={k === "home" ? "#/" : `#/${k}`} className={route.page === k ? "act" : ""}>{l}</a>)}
+            <a className="cta-sm" href="#/policies/contact">Book now</a>
+          </nav>
+          <button className="burger" onClick={() => setMenu(!menu)} aria-label="Menu">{menu ? "×" : "☰"}</button>
+        </div>
+      </header>
+
+      <main>
+        {route.page === "templates" ? <Templates type={route.sub} occ={route.sub2} /> : route.page === "policies" ? <Policies sub={route.sub} /> : <Home />}
+      </main>
+
+      <footer className="footer">
+        <div className="wrap">
+          <span className="brand"><img className="logo" src="/logo.jpg" alt="" /><span>Kate Studio</span></span>
+          <p>© {new Date().getFullYear()} Kate Studio. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
   );
 }
