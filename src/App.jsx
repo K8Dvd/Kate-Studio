@@ -541,6 +541,7 @@ const POLICIES = [
     ["50% to start", "Pay half upfront to reserve your slot and begin designing. This amount can't be refunded."],
     ["Balance", "The other half is due before we publish and hand over your finished link."],
     ["Refunds", "Once design or drafting has begun, payments are no longer refundable."],
+    ["Payment methods", "GCash for customers in the Philippines, and PayPal for customers in the US and other countries. We'll send the payment details once you book."],
   ]],
   ["What We Need From You", [
     ["Everything first", "We begin once we have it all: photos, final wording, entourage, schedule, and venue links."],
@@ -575,6 +576,7 @@ const FAQS = [
   ["Will it work on phones?", "Yes! Every site is built for phones, tablets, and computers. Guests just open your link, with no app or login."],
   ["How does RSVP work?", "Standard RSVP uses a Google Form, so replies are collected in Google and you can open them in a Google Sheet anytime. Premium RSVP is a themed page that matches your site: guests confirm there, replies are saved to a Google Sheet, and it can use an editable guest list and a limit per invite."],
   ["Can I get a rush order?", "Yes. A 1–2 day rush costs half the price of your website and depends on slot availability."],
+  ["How can I pay?", "We accept GCash for customers in the Philippines and PayPal for customers in the US and other countries. We'll send the payment details once you message us."],
   ["Are payments refundable?", "No. The 50% downpayment is non-refundable, and once design or drafting has begun, payments can't be refunded."],
   ["How long will my link stay online?", "Permanently! If you enjoyed the experience, we'd love a short testimonial, but it's optional."],
   ["I don't see my occasion. What now?", "New designs are added regularly. Message us with your idea and we'll let you know what we can do."],
@@ -588,9 +590,50 @@ const Arrow = () => (
   </svg>
 );
 
+const SITE = "https://katestudioweb.netlify.app"; // change if you get a custom domain
+
 const parse = () => {
-  const p = (window.location.hash.replace(/^#\/?/, "") || "home").split("/");
+  const p = window.location.pathname.split("/").filter(Boolean);
   return { page: p[0] || "home", sub: p[1] || "all", sub2: p[2] || "all" };
+};
+
+const nav = (path) => {
+  window.history.pushState({}, "", path);
+  window.dispatchEvent(new Event("navigate"));
+};
+
+/* Page titles + descriptions for Google. */
+const setMeta = (sel, attr, val) => {
+  let el = document.head.querySelector(sel);
+  if (!el) {
+    el = document.createElement(sel.startsWith("link") ? "link" : "meta");
+    const m = sel.match(/\[(.+?)="(.+?)"\]/);
+    el.setAttribute(m[1], m[2]);
+    document.head.appendChild(el);
+  }
+  el.setAttribute(attr, val);
+};
+
+const seoFor = (r) => {
+  if (r.page === "templates") {
+    const ty = TYPES.find((x) => x.key === r.sub) || TYPES[0];
+    const oc = OCCASIONS.find((o) => o.type === ty.key && o.key === r.sub2);
+    const path = `/templates/${ty.key}${oc ? `/${oc.key}` : ""}`;
+    return ty.key === "website"
+      ? {
+          path,
+          title: `${oc ? oc.label + " " : ""}Interactive Website Templates | Kate Studio`,
+          desc: `Interactive ${oc ? oc.label.toLowerCase() + " " : "love, birthday, and anniversary "}websites you can try live before you order. Real coded websites, personalized and delivered as one shareable link.`,
+        }
+      : {
+          path,
+          title: `${oc ? oc.label + " " : ""}Digital Invitations with RSVP | Kate Studio`,
+          desc: `Digital ${oc ? oc.label.toLowerCase() + " " : "wedding, debut, baptism, and event "}invitations with Standard or Premium RSVP. Preview the live website, then order. Shared as one link.`,
+        };
+  }
+  if (r.page === "policies")
+    return { path: "/policies", title: "Payment, Delivery Time, Policies & FAQ | Kate Studio", desc: "How ordering works: 50% downpayment, GCash and PayPal payments, delivery time, edits, typo warranty, and answers to common questions." };
+  return { path: "/", title: "Kate Studio | Interactive Websites & Digital Invitations", desc: "Custom-coded interactive websites for love, birthdays, and anniversaries, plus digital invitations with RSVP for weddings, debuts, baptisms, and more." };
 };
 
 function Price({ t }) {
@@ -640,7 +683,7 @@ function Preview({ t, onClose }) {
           <div><b>{t.title}</b><Price t={t} /></div>
           <div className="row">
             <a className="btn ghost sm" href={t.link} target="_blank" rel="noreferrer">New tab ↗</a>
-            <a className="btn sm" href="#/policies/contact">Book this</a>
+            <a className="btn sm" href="/policies/contact">Book this</a>
             <button className="x" onClick={onClose} aria-label="Close">×</button>
           </div>
         </div>
@@ -658,8 +701,8 @@ function Home() {
           <h1>Websites for your <em>favorite moments.</em></h1>
           <p>Love stories, birthday surprises, and wedding invitations, all coded by hand and delivered as one link you can send to anyone.</p>
           <div className="row">
-            <a className="btn" href="#/templates">Browse templates <Arrow /></a>
-            <a className="btn ghost" href="#/policies">Policies & FAQ</a>
+            <a className="btn" href="/templates/website">Browse templates <Arrow /></a>
+            <a className="btn ghost" href="/policies">Policies & FAQ</a>
           </div>
           {startingAt > 0 && <p className="note">Starting at <b>₱{startingAt}</b></p>}
         </div>
@@ -671,6 +714,7 @@ function Home() {
           <div>
             <h2>Just 50% down to book your slot.</h2>
             <p>Pay the rest only when your site is ready to go live.</p>
+            <p className="paystrip">Pay with GCash (Philippines) or PayPal (International / US)</p>
           </div>
         </div>
       </section>
@@ -681,7 +725,7 @@ function Home() {
           <div className="grp" key={ty.key}>
             <div className="grp-h">
               <div><h3>{ty.label}</h3><p>{ty.blurb}</p></div>
-              <a className="btn ghost sm" href={`#/templates/${ty.key}`}>See all <Arrow /></a>
+              <a className="btn ghost sm" href={`/templates/${ty.key}`}>See all <Arrow /></a>
             </div>
             <div className="occ">
               {OCCASIONS.filter((o) => o.type === ty.key).map((o) => {
@@ -694,7 +738,7 @@ function Home() {
                     <small>{n ? <>{n} {n === 1 ? "design" : "designs"} <Arrow /></> : "Coming soon"}</small>
                   </>
                 );
-                return n ? <a key={o.key} className="ocard" href={`#/templates/${ty.key}/${o.key}`}>{inner}</a> : <div key={o.key} className="ocard dim">{inner}</div>;
+                return n ? <a key={o.key} className="ocard" href={`/templates/${ty.key}/${o.key}`}>{inner}</a> : <div key={o.key} className="ocard dim">{inner}</div>;
               })}
             </div>
           </div>
@@ -732,11 +776,12 @@ function Templates({ type, occ }) {
   const shown = ofType.filter((t) => (oc === "all" || t.occasion === oc) && (rsvp === "all" || t.rsvp === rsvp));
 
   useEffect(() => setRsvp("all"), [type, occ]);
-  const go = (a, b) => { window.location.hash = `#/templates/${a}${b && b !== "all" ? `/${b}` : ""}`; };
+  const go = (a, b) => { nav(`/templates/${a}${b && b !== "all" ? `/${b}` : ""}`); };
 
   return (
     <section className="wrap">
-      <div className="head"><span className="label">Templates</span><h1 className="h1s">Find your design.</h1></div>
+      <div className="head"><span className="label">Templates</span><h1 className="h1s">{ty === "website" ? "Interactive website templates" : "Digital invitations with RSVP"}</h1>
+        <p className="intro">{ty === "website" ? "Real coded websites for love stories, birthdays, and anniversaries. Try each one live, then we personalize it with your names, photos, and messages." : "Invitations for weddings, debuts, baptisms, and more, with Standard or Premium RSVP. Preview the live website, then we personalize it for your event."}</p></div>
       <div className="tabs big">
         {TYPES.map((x) => <button key={x.key} className={ty === x.key ? "on" : ""} onClick={() => go(x.key)}>{x.label}</button>)}
       </div>
@@ -776,6 +821,10 @@ function Policies({ sub }) {
       <section className="wrap">
         <div className="head"><span className="label">Before you order</span><h1 className="h1s">Policies</h1></div>
         <div className="dp small"><b>50%</b><div><h2>Downpayment to start</h2><p>Non-refundable. The balance is paid before your final link is released.</p></div></div>
+        <div className="pay">
+          <div className="paycard gc"><span>🇵🇭 Philippines</span><h3>GCash</h3><p>For customers in the Philippines.</p></div>
+          <div className="paycard pp"><span>🌎 International / US</span><h3>PayPal</h3><p>For customers in the US and other countries.</p></div>
+        </div>
         <div className="notes">
           <p>💌 Every invitation is delivered as a digital link you can share anywhere.</p>
           <p>🎨 Each site is built from scratch with HTML, CSS, and JavaScript, no drag-and-drop builders.</p>
@@ -830,24 +879,47 @@ export default function App() {
 
   useEffect(() => {
     const on = () => { setRoute(parse()); setMenu(false); window.scrollTo(0, 0); };
-    window.addEventListener("hashchange", on);
-    return () => window.removeEventListener("hashchange", on);
+    const click = (e) => {
+      const a = e.target.closest && e.target.closest("a");
+      const h = a && a.getAttribute("href");
+      if (!h || !h.startsWith("/") || a.target === "_blank" || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+      e.preventDefault();
+      nav(h);
+    };
+    window.addEventListener("popstate", on);
+    window.addEventListener("navigate", on);
+    document.addEventListener("click", click);
+    return () => {
+      window.removeEventListener("popstate", on);
+      window.removeEventListener("navigate", on);
+      document.removeEventListener("click", click);
+    };
   }, []);
 
-  const nav = [["home", "Home"], ["templates", "Templates"], ["policies", "Policies & FAQ"]];
+  useEffect(() => {
+    const m = seoFor(route);
+    document.title = m.title;
+    setMeta('meta[name="description"]', "content", m.desc);
+    setMeta('link[rel="canonical"]', "href", SITE + m.path);
+    setMeta('meta[property="og:title"]', "content", m.title);
+    setMeta('meta[property="og:description"]', "content", m.desc);
+    setMeta('meta[property="og:url"]', "content", SITE + m.path);
+  }, [route]);
+
+  const links = [["home", "Home", "/"], ["templates", "Templates", "/templates/website"], ["policies", "Policies & FAQ", "/policies"]];
 
   return (
     <div className="shell">
       {ann && <div className="announce">{ann}</div>}
       <header className="nav">
         <div className="wrap nav-in">
-          <a className="brand" href="#/">
+          <a className="brand" href="/">
             <img className="logo" src="/logo.jpg" alt="Kate Studio logo" />
             <span>Kate Studio<small>digital invitations & love stories</small></span>
           </a>
           <nav className={menu ? "links open" : "links"}>
-            {nav.map(([k, l]) => <a key={k} href={k === "home" ? "#/" : `#/${k}`} className={route.page === k ? "act" : ""}>{l}</a>)}
-            <a className="cta-sm" href="#/policies/contact">Book now</a>
+            {links.map(([k, l, h]) => <a key={k} href={h} className={route.page === k ? "act" : ""}>{l}</a>)}
+            <a className="cta-sm" href="/policies/contact">Book now</a>
           </nav>
           <button className="burger" onClick={() => setMenu(!menu)} aria-label="Menu">{menu ? "×" : "☰"}</button>
         </div>
